@@ -14,7 +14,7 @@ import AdminLogin from "../components/AdminLogin";
 import DashboardLayout from "../pages/dashboard/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import ManageItem from "../pages/dashboard/mamageItems/ManageItem";
-import AddItem from "../pages/dashboard/additem/addItem";
+import AddItem from "../pages/dashboard/additem/AddItem";
 import UpdateItems from "../pages/dashboard/editItem/UpdateItems";
 import ManageOrders from "../pages/dashboard/manageOrders/ManageOrders";
 import SlidesManager from "../pages/dashboard/slidesManagment/SlidesManager";
