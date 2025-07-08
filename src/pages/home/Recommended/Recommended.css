@@ -1,0 +1,19 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"); */
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 460px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+}

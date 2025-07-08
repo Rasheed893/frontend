@@ -1,0 +1,113 @@
+import React, { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/pagination";
+import "./AllProducts.css";
+
+import { Grid, Pagination } from "swiper/modules";
+import ItemCard from "../items/ItemCard";
+import { useFetchAllItemsQuery } from "../../redux/features/itemAPI";
+import { Link } from "react-router-dom";
+
+const AllProducts = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [searchQuery, setSearchQuery] = useState(""); // new search query state
+
+  const { data: itemsData = {}, error, isLoading } = useFetchAllItemsQuery();
+  const items = itemsData.item || [];
+
+  // Extract unique categories from items
+  const categories = [
+    "All Categories",
+    ...new Set(items.map((item) => item.category)),
+  ];
+  console.log("Categories:", categories);
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 🔍 Apply search and category filter logic
+  const filteredItems = Array.isArray(items)
+    ? items.filter((item) => {
+        const matchesCategory =
+          selectedCategory === "All Categories" ||
+          item.category.toLowerCase() === selectedCategory.toLowerCase();
+        const matchesSearch =
+          item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return searchQuery ? matchesSearch : matchesCategory;
+      })
+    : [];
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading items</div>;
+
+  return (
+    <>
+      {/* Search + Category Controls */}
+      <div className="w-full flex flex-col md:flex-row gap-4 items-center justify-center md:justify-between mb-6 px-4">
+        <div className="w-full md:w-[300px]">
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full border bg-gray-100 border-gray-300 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+          />
+        </div>
+
+        <div className="w-full md:w-[300px]">
+          <select
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            value={selectedCategory}
+            name="category"
+            id="category"
+            className="w-full border bg-gray-100 border-gray-300 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+          >
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Product Grid */}
+      <Swiper
+        slidesPerView={1}
+        key={selectedCategory}
+        breakpoints={{
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+        grid={{ rows: 3, fill: "row" }}
+        spaceBetween={20}
+        pagination={{ clickable: true }}
+        modules={[Grid, Pagination]}
+        className="mySwiper px-4 sm:px-8"
+      >
+        {filteredItems.length > 0 ? (
+          filteredItems.map((item, index) => (
+            <SwiperSlide key={index}>
+              <ItemCard item={item} />
+            </SwiperSlide>
+          ))
+        ) : (
+          <div className="w-full text-center col-span-full py-10">
+            No products found.
+          </div>
+        )}
+      </Swiper>
+    </>
+  );
+};
+
+export default AllProducts;
