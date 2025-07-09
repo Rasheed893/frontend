@@ -105,7 +105,7 @@ const Login = () => {
         draggable: true,
       });
     } catch (error) {
-      alert("Please enter a valid account");
+      alert("Google sign-in failed: " + error.message);
       console.error("Google Sign-In Error:", error);
     }
   };
