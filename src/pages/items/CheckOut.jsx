@@ -876,6 +876,11 @@ const CheckOut = () => {
                             {discountAmount.toFixed(2)})
                           </p>
                         )}
+                        {isFreeShipping && (
+                          <p className="text-sm text-green-600">
+                            ✅ Promo applied: Free shipping
+                          </p>
+                        )}
                       </div>
 
                       {/* Delivery Notes */}
