@@ -38,6 +38,7 @@ const CheckOut = () => {
   const [availablePromos, setAvailablePromos] = useState([]);
   const [showPromoList, setShowPromoList] = useState(false);
   const [showPromoModal, setShowPromoModal] = useState(false);
+  const [promoApplied, setPromoApplied] = useState(false);
 
   // Stripe things
   const stripe = useStripe();
@@ -221,7 +222,9 @@ const CheckOut = () => {
       setDiscountPercent(result.discountPercentage);
       setDiscountAmount(discount);
       setIsFreeShipping(result.freeShipping || false);
+      setPromoApplied(true);
 
+      console.log("Free shipping status:", result.freeShipping);
       const currentCity = watch("city");
       const updatedTotal = calculateFinalTotals(
         currentCity,
@@ -846,7 +849,11 @@ const CheckOut = () => {
                             type="text"
                             id="promo"
                             value={promoCode}
-                            onChange={(e) => setPromoCode(e.target.value)}
+                            onChange={(e) => {
+                              setPromoCode(e.target.value);
+                              setPromoError(""); // Clear errors on change
+                              setPromoApplied(false); // Optional: reset promo feedback if typing again
+                            }}
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                             placeholder="Enter promo code"
                           />
@@ -864,22 +871,27 @@ const CheckOut = () => {
                             title="Show Available Promo Codes"
                           >
                             <BiSolidOffer className="size-5" />
-                            {/* Show Available Promo Codes */}
                           </button>
                         </div>
+
                         {promoError && (
                           <p className="text-sm text-red-500">{promoError}</p>
                         )}
-                        {discountPercent > 0 && (
-                          <p className="text-sm text-green-600">
-                            Promo applied: {discountPercent}% off (−AED{" "}
-                            {discountAmount.toFixed(2)})
-                          </p>
-                        )}
-                        {isFreeShipping && (
-                          <p className="text-sm text-green-600">
-                            ✅ Promo applied: Free shipping
-                          </p>
+
+                        {(discountPercent > 0 || isFreeShipping) && (
+                          <>
+                            {discountPercent > 0 && (
+                              <p className="text-sm text-green-600">
+                                Promo applied: {discountPercent}% off (−AED{" "}
+                                {discountAmount.toFixed(2)})
+                              </p>
+                            )}
+                            {isFreeShipping && (
+                              <p className="text-sm text-green-600">
+                                ✅ Promo applied: Free shipping
+                              </p>
+                            )}
+                          </>
                         )}
                       </div>
 
