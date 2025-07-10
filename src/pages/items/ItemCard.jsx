@@ -30,12 +30,12 @@ const ItemCard = ({ item }) => {
   };
 
   return (
-    <div className="w-full md:w-64">
-      <Link to={`/item/${item?.id}`} className="group">
-        <div className="bg-white rounded-lg overflow-hidden border hover:shadow-md transition-shadow duration-300">
+    <div className="w-full max-w-xs mx-auto sm:max-w-sm md:w-64">
+      <Link to={`/item/${item?.id}`} className="group block h-full">
+        <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden border dark:border-gray-700 hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
           <div className="relative">
             {/* Image */}
-            <div className="overflow-hidden aspect-[3/4]">
+            <div className="overflow-hidden aspect-[3/4] bg-gray-100 dark:bg-gray-800">
               <img
                 src={imgSrc}
                 alt={item?.title || "Item"}
@@ -48,7 +48,7 @@ const ItemCard = ({ item }) => {
             <div className="absolute bottom-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
               <button
                 onClick={handleFavorite}
-                className="p-2 bg-white rounded-full shadow-md hover:bg-gray-100"
+                className="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700"
                 aria-label="Add to favorites"
               >
                 <FiHeart size={16} />
@@ -79,15 +79,15 @@ const ItemCard = ({ item }) => {
 
           {/* Item details */}
           <div className="p-3">
-            <h3 className="font-medium text-sm line-clamp-2 group-hover:text-blue-600 transition-colors duration-200">
+            <h3 className="font-medium text-sm line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-yellow-400 transition-colors duration-200 dark:text-gray-100">
               {item?.title}
             </h3>
             <div className="flex items-baseline mt-1">
-              <span className="font-semibold text-base">
+              <span className="font-semibold text-base dark:text-yellow-400">
                 ${item?.newPrice?.toFixed(2)}
               </span>
               {item?.oldPrice && (
-                <span className="ml-2 text-xs text-gray-500 line-through">
+                <span className="ml-2 text-xs text-gray-500 dark:text-gray-400 line-through">
                   ${item?.oldPrice?.toFixed(2)}
                 </span>
               )}
@@ -105,7 +105,7 @@ const ItemCard = ({ item }) => {
                     className={`w-4 h-4 fill-current ${
                       i < Math.round(item?.rating?.average ?? 0)
                         ? "text-yellow-400"
-                        : "text-gray-300"
+                        : "text-gray-300 dark:text-gray-600"
                     }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
@@ -114,7 +114,7 @@ const ItemCard = ({ item }) => {
                   </svg>
                 ))}
               </div>
-              <span className="text-xs text-gray-500 ml-1">
+              <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">
                 {(item?.rating?.average ?? 0).toFixed(1)} (
                 {item?.rating?.count ?? 0} ratings)
               </span>
@@ -122,7 +122,7 @@ const ItemCard = ({ item }) => {
 
             {/* Savings info */}
             {discount > 0 && (
-              <p className="text-xs text-green-600 mt-1">
+              <p className="text-xs text-green-600 dark:text-green-400 mt-1">
                 You save {discount}%!
               </p>
             )}
