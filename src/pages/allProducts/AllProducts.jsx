@@ -58,7 +58,7 @@ const AllProducts = () => {
             placeholder="Search products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full border bg-gray-100 border-gray-300 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
           />
         </div>
 
@@ -68,7 +68,7 @@ const AllProducts = () => {
             value={selectedCategory}
             name="category"
             id="category"
-            className="w-full border bg-gray-100 border-gray-300 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
           >
             {categories.map((category, index) => (
               <option key={index} value={category}>
@@ -79,33 +79,52 @@ const AllProducts = () => {
         </div>
       </div>
 
-      {/* Product Grid */}
-      <Swiper
-        slidesPerView={1}
-        key={selectedCategory}
-        breakpoints={{
-          640: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-        grid={{ rows: 3, fill: "row" }}
-        spaceBetween={20}
-        pagination={{ clickable: true }}
-        modules={[Grid, Pagination]}
-        className="mySwiper px-4 sm:px-8"
-      >
-        {filteredItems.length > 0 ? (
-          filteredItems.map((item, index) => (
-            <SwiperSlide key={index}>
-              <ItemCard item={item} />
-            </SwiperSlide>
-          ))
-        ) : (
-          <div className="w-full text-center col-span-full py-10">
-            No products found.
-          </div>
-        )}
-      </Swiper>
+      {/* Mobile: Horizontal Scroll */}
+      <div className="block md:hidden">
+        <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
+              <div key={index} className="flex-shrink-0 w-56">
+                <ItemCard item={item} />
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500 dark:text-gray-400 w-full text-center py-10">
+              No products found.
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop: Swiper Grid */}
+      <div className="hidden md:block">
+        <Swiper
+          slidesPerView={1}
+          key={selectedCategory}
+          breakpoints={{
+            640: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          grid={{ rows: 3, fill: "row" }}
+          spaceBetween={20}
+          pagination={{ clickable: true }}
+          modules={[Grid, Pagination]}
+          className="mySwiper px-4 sm:px-8"
+        >
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
+              <SwiperSlide key={index}>
+                <ItemCard item={item} />
+              </SwiperSlide>
+            ))
+          ) : (
+            <div className="w-full text-center col-span-full py-10">
+              No products found.
+            </div>
+          )}
+        </Swiper>
+      </div>
     </>
   );
 };

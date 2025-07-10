@@ -31,33 +31,54 @@ const Recommended = () => {
   }
   return (
     <div className="py-16">
-      <h2 className="text-3xl font-semibold mb-6">More For You</h2>
-      {/* Add your recommended products list here */}
+      <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
+        More For You
+      </h2>
 
-      <Swiper
-        effect={"coverflow"}
-        grabCursor={true}
-        centeredSlides={true}
-        spaceBetween={20}
-        slidesPerView={"auto"}
-        coverflowEffect={{
-          rotate: 50,
-          stretch: 0,
-          depth: 100,
-          modifier: 1,
-          slideShadows: true,
-        }}
-        pagination={true}
-        modules={[EffectCoverflow, Pagination]}
-        className="mySwiper"
-      >
-        {items.length > 0 &&
-          items.map((item, index) => (
-            <SwiperSlide key={index}>
-              <ItemCard item={item} />
-            </SwiperSlide>
-          ))}
-      </Swiper>
+      {/* Mobile: Horizontal Scroll */}
+      <div className="block md:hidden">
+        <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+          {items.length > 0 ? (
+            items.map((item, index) => (
+              <div key={index} className="flex-shrink-0 w-56">
+                <ItemCard item={item} />
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500 dark:text-gray-400 w-full text-center py-10">
+              No recommended items found.
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop: Swiper */}
+      <div className="hidden md:block">
+        <Swiper
+          effect={"coverflow"}
+          grabCursor={true}
+          centeredSlides={true}
+          spaceBetween={20}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          pagination={true}
+          modules={[EffectCoverflow, Pagination]}
+          className="mySwiper"
+        >
+          {items.length > 0 &&
+            items.map((item, index) => (
+              <SwiperSlide key={index}>
+                <ItemCard item={item} />
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
     </div>
   );
 };
