@@ -298,21 +298,53 @@ const SingleItem = () => {
           </div>
         </div>
         {/* Product Tabs */}
-        <div className="container mx-auto px-4 py-5">
+        <div className="container mx-auto px-2 py-5 sm:px-4">
           <Tabs defaultValue="description">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="description">Description</TabsTrigger>
-              <TabsTrigger value="specs">Specifications</TabsTrigger>
-              <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            <TabsList
+              className="
+                grid w-full grid-cols-3
+                bg-gray-100 dark:bg-gray-800
+                rounded-lg overflow-hidden
+                text-gray-700 dark:text-gray-200
+                border dark:border-gray-700
+                mb-4
+                text-xs sm:text-base
+              "
+            >
+              <TabsTrigger
+                value="description"
+                className="focus:outline-none focus:ring-2 focus:ring-brand-yellow dark:focus:ring-yellow-400"
+              >
+                Description
+              </TabsTrigger>
+              <TabsTrigger
+                value="specs"
+                className="focus:outline-none focus:ring-2 focus:ring-brand-yellow dark:focus:ring-yellow-400"
+              >
+                Specifications
+              </TabsTrigger>
+              <TabsTrigger
+                value="reviews"
+                className="focus:outline-none focus:ring-2 focus:ring-brand-yellow dark:focus:ring-yellow-400"
+              >
+                Reviews
+              </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="description" className="py-6">
-              <h3 className="font-bold text-lg mb-3">Product Description</h3>
-              <p className="text-gray-600 mb-4">
+            <TabsContent
+              value="description"
+              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+            >
+              <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
+                Product Description
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
                 {item?.additionalDescription}
               </p>
-              <p className="text-gray-600 mb-4">{item?.moreDetails}</p>
-              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                {item?.moreDetails}
+              </p>
+              <ul className="list-disc pl-5 text-gray-600 dark:text-gray-300 space-y-2">
                 {item.features && item.features.length > 0 ? (
                   item.features.map((feature, index) => (
                     <li key={index}>{feature}</li>
@@ -323,51 +355,73 @@ const SingleItem = () => {
               </ul>
             </TabsContent>
 
-            <TabsContent value="specs" className="py-6">
-              <h3 className="font-bold text-lg mb-3">
+            <TabsContent
+              value="specs"
+              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+            >
+              <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
                 Technical Specifications
               </h3>
-              <div className="border rounded-md divide-y">
+              <div className="border rounded-md divide-y dark:border-gray-700 dark:divide-gray-700">
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Material</span>
-                  <span>{item?.material}</span>
+                  <span className="font-medium dark:text-gray-200">
+                    Material
+                  </span>
+                  <span className="dark:text-gray-300">{item?.material}</span>
                 </div>
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Dimensions</span>
-                  <span>{item?.dimensions}</span>
+                  <span className="font-medium dark:text-gray-200">
+                    Dimensions
+                  </span>
+                  <span className="dark:text-gray-300">{item?.dimensions}</span>
                 </div>
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Weight</span>
-                  <span>{item?.weight}</span>
+                  <span className="font-medium dark:text-gray-200">Weight</span>
+                  <span className="dark:text-gray-300">{item?.weight}</span>
                 </div>
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Color Options</span>
-                  <span>
+                  <span className="font-medium dark:text-gray-200">
+                    Color Options
+                  </span>
+                  <span className="dark:text-gray-300">
                     {item.colorOptions && item.colorOptions.length > 0
                       ? item.colorOptions.join(", ")
                       : "No color options available"}
                   </span>
                 </div>
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Warranty</span>
-                  <span>{item?.warranty}</span>
+                  <span className="font-medium dark:text-gray-200">
+                    Warranty
+                  </span>
+                  <span className="dark:text-gray-300">{item?.warranty}</span>
                 </div>
                 <div className="grid grid-cols-2 p-3">
-                  <span className="font-medium">Country of Origin</span>
-                  <span>{item?.countryOfOrigin}</span>
+                  <span className="font-medium dark:text-gray-200">
+                    Country of Origin
+                  </span>
+                  <span className="dark:text-gray-300">
+                    {item?.countryOfOrigin}
+                  </span>
                 </div>
               </div>
             </TabsContent>
 
-            <TabsContent value="reviews" className="py-6">
-              <h3 className="font-bold text-lg mb-3">Customer Reviews</h3>
+            <TabsContent
+              value="reviews"
+              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+            >
+              <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
+                Customer Reviews
+              </h3>
               <div className="space-y-6">
                 {/* Mock reviews */}
                 {[...Array(3)].map((_, i) => (
-                  <div key={i} className="border-b pb-6">
+                  <div key={i} className="border-b pb-6 dark:border-gray-700">
                     <div className="flex justify-between mb-2">
-                      <div className="font-medium">Customer {i + 1}</div>
-                      <div className="text-gray-500 text-sm">
+                      <div className="font-medium dark:text-gray-200">
+                        Customer {i + 1}
+                      </div>
+                      <div className="text-gray-500 dark:text-gray-400 text-sm">
                         {new Date(
                           Date.now() - i * 5 * 24 * 60 * 60 * 1000
                         ).toLocaleDateString()}
@@ -381,12 +435,12 @@ const SingleItem = () => {
                           className={`${
                             j < 4 + (i % 2)
                               ? "text-yellow-400 fill-yellow-400"
-                              : "text-gray-300"
+                              : "text-gray-300 dark:text-gray-600"
                           }`}
                         />
                       ))}
                     </div>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
                       {i === 0 &&
                         "Great product, exactly as described. Fast delivery and excellent packaging. Would buy again!"}
                       {i === 1 &&
