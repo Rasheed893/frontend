@@ -273,7 +273,9 @@ const AllProducts = () => {
           >
             {visibleItems.length > 0 ? (
               visibleItems.map((item) => (
-                <ItemCard key={item.id} className="mb-6" item={item} />
+                <div key={item.id} className="mb-6">
+                  <ItemCard item={item} />
+                </div>
               ))
             ) : (
               <div className="text-gray-500 dark:text-gray-400 w-full text-center py-10">
