@@ -10,6 +10,9 @@ import ItemCard from "../items/ItemCard";
 import { useFetchAllItemsQuery } from "../../redux/features/itemAPI";
 import { Link } from "react-router-dom";
 
+import Masonry from "react-masonry-css";
+import InfiniteScroll from "react-infinite-scroll-component";
+
 const AllProducts = () => {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [searchQuery, setSearchQuery] = useState(""); // new search query state
@@ -51,7 +54,8 @@ const AllProducts = () => {
   return (
     <>
       {/* Search + Category Controls */}
-      <div className="w-full flex flex-col md:flex-row gap-4 items-center justify-center md:justify-between mb-6 px-4">
+      <div className="px-2 sm:px-4 py-6">
+        {/* <div className="w-full flex flex-col md:flex-row gap-4 items-center justify-center md:justify-between mb-6 px-4"> */}
         <div className="w-full md:w-[300px]">
           <input
             type="text"
@@ -79,8 +83,27 @@ const AllProducts = () => {
         </div>
       </div>
 
+      <InfiniteScroll
+        dataLength={filteredItems.length}
+        next={fetchMoreItems} // your function to fetch more
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p className="text-center text-gray-500">No more products.</p>
+        }
+      >
+        <Masonry
+          breakpointCols={{ default: 4, 1100: 3, 700: 2, 500: 1 }}
+          className="flex w-auto gap-4"
+          columnClassName="masonry-column"
+        >
+          {filteredItems.map((item) => (
+            <ItemCard key={item.id} item={item} />
+          ))}
+        </Masonry>
+      </InfiniteScroll>
       {/* Mobile: Horizontal Scroll */}
-      <div className="block md:hidden">
+      {/* <div className="block md:hidden">
         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
           {filteredItems.length > 0 ? (
             filteredItems.map((item, index) => (
@@ -94,10 +117,10 @@ const AllProducts = () => {
             </div>
           )}
         </div>
-      </div>
+      </div> */}
 
       {/* Desktop: Swiper Grid */}
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <Swiper
           slidesPerView={1}
           key={selectedCategory}
@@ -124,7 +147,7 @@ const AllProducts = () => {
             </div>
           )}
         </Swiper>
-      </div>
+      </div> */}
     </>
   );
 };
