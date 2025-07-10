@@ -52,16 +52,18 @@ const TopSellers = () => {
   }
 
   return (
-    <div className="py-10">
-      <h2 className="text-3xl font-semibold mb-6">Top Sellers</h2>
+    <div className="py-6">
+      <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
+        Top Sellers
+      </h2>
       {/* categories Selection */}
-      <div className="w-full flex justify-center md:justify-start mb-4">
-        <div className="w-[90%] md:w-[300px]">
+      <div className="w-full flex justify-center md:justify-start mb-3">
+        <div className="w-[95%] sm:w-[90%] md:w-[300px]">
           <select
             onChange={(e) => setSelectedCategory(e.target.value)}
             name="category"
             id="category"
-            className="w-full border bg-gray-100 border-gray-300 rounded-md px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+            className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
           >
             {categories.map((category, index) => (
               <option key={index} value={category}>
@@ -72,56 +74,53 @@ const TopSellers = () => {
         </div>
       </div>
       {/* See All Link */}
-      <div className="flex justify-end mb-0 px-10 font-semibold">
+      <div className="flex justify-end mb-2 px-4 font-semibold">
         <Link
           to="/all-products"
-          className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700"
+          className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
         >
           See All <FiArrowRight />
         </Link>
       </div>
-      {/* Swiper */}
-      <Swiper
-        navigation={true}
-        // slidesPerView={1}
-        key={selectedCategory}
-        spaceBetween={10}
-        breakpoints={{
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          640: {
-            slidesPerView: 1,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          1024: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          1180: {
-            slidesPerView: 3,
-            spaceBetween: 10,
-          },
-          1240: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-          },
-        }}
-        modules={[Pagination, Navigation]}
-        className="mySwiper"
-      >
-        {filteredItems.length > 0 &&
-          filteredItems.map((item, index) => (
-            <SwiperSlide key={index}>
-              <ItemCard item={item} />
-            </SwiperSlide>
-          ))}
-      </Swiper>
+      {/* Modern Mobile Layout */}
+      <div className="block md:hidden">
+        <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
+              <div key={index} className="flex-shrink-0 w-56">
+                <ItemCard item={item} />
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500 dark:text-gray-400">
+              No items found.
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Swiper for Desktop */}
+      <div className="hidden md:block">
+        <Swiper
+          navigation={true}
+          key={selectedCategory}
+          spaceBetween={10}
+          breakpoints={{
+            768: { slidesPerView: 2, spaceBetween: 10 },
+            1024: { slidesPerView: 2, spaceBetween: 10 },
+            1180: { slidesPerView: 3, spaceBetween: 10 },
+            1240: { slidesPerView: 4, spaceBetween: 10 },
+          }}
+          modules={[Pagination, Navigation]}
+          className="mySwiper"
+        >
+          {filteredItems.length > 0 &&
+            filteredItems.map((item, index) => (
+              <SwiperSlide key={index}>
+                <ItemCard item={item} />
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
     </div>
   );
 };

@@ -32,7 +32,7 @@ const ItemCard = ({ item }) => {
   return (
     <div className="w-full max-w-xs mx-auto sm:max-w-sm md:w-64">
       <Link to={`/item/${item?.id}`} className="group block h-full">
-        <div className="bg-white dark:bg-gray-900 rounded-lg overflow-hidden border dark:border-gray-700 hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
+        <div className="bg-white dark:bg-gray-900 rounded-2xl sm:rounded-lg overflow-hidden border dark:border-gray-700 hover:shadow-md transition-shadow duration-300 h-full flex flex-col">
           <div className="relative">
             {/* Image */}
             <div className="overflow-hidden aspect-[3/4] bg-gray-100 dark:bg-gray-800">
