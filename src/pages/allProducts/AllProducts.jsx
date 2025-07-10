@@ -225,10 +225,13 @@ const AllProducts = () => {
 
       {/* Mobile: Horizontal Scrollable Cards */}
       <div className="block md:hidden">
-        <div className="flex gap-3 overflow-x-auto pb-4 px-2">
+        <div className="flex gap-4 overflow-x-auto py-2 px-2">
           {visibleItems.length > 0 ? (
             visibleItems.map((item) => (
-              <div key={item.id} className="flex-shrink-0 w-56">
+              <div
+                key={item.id}
+                className="flex-shrink-0 w-44 rounded-2xl shadow-md bg-white dark:bg-gray-900"
+              >
                 <ItemCard item={item} />
               </div>
             ))
@@ -239,7 +242,7 @@ const AllProducts = () => {
           )}
         </div>
         {hasMore && (
-          <div className="flex justify-center mt-4">
+          <div className="flex justify-center mt-4 mb-6">
             <button
               onClick={fetchMoreItems}
               className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition"
@@ -269,7 +272,9 @@ const AllProducts = () => {
             columnClassName="masonry-column"
           >
             {visibleItems.length > 0 ? (
-              visibleItems.map((item) => <ItemCard key={item.id} item={item} />)
+              visibleItems.map((item) => (
+                <ItemCard key={item.id} className="mb-6" item={item} />
+              ))
             ) : (
               <div className="text-gray-500 dark:text-gray-400 w-full text-center py-10">
                 No products found.
