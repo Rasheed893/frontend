@@ -85,9 +85,9 @@ const SingleItem = () => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-gray-900 w-full">
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-4">
+      <div className="w-full px-4 py-4 max-w-screen-xl mx-auto">
         <div className="flex items-center text-sm text-gray-500">
           <Link to="/" className="hover:text-gray-800">
             Home
@@ -107,7 +107,7 @@ const SingleItem = () => {
       </div>
 
       {/* Product Details */}
-      <div className="container mx-auto px-4 py-6 md:py-12">
+      <div className="w-full px-4 py-6 md:py-12 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Left: Product Images */}
           <div className="space-y-4">
@@ -279,7 +279,9 @@ const SingleItem = () => {
             {/* Additional Info */}
             <div className="border-t pt-6 space-y-3 ">
               <div className="flex items-start">
-                <div className="font-medium min-w-[150px]">SKU:</div>
+                <div className="text-gray-600 break-all truncate max-w-[150px]">
+                  SKU:
+                </div>
                 <div className="text-gray-600">
                   RF-{item.id.toString().padStart(4, "0")}
                 </div>
@@ -298,7 +300,7 @@ const SingleItem = () => {
           </div>
         </div>
         {/* Product Tabs */}
-        <div className="container mx-auto px-2 py-5 sm:px-1">
+        <div className="w-full px-2 py-5 sm:px-4 max-w-screen-xl mx-auto">
           <Tabs defaultValue="description">
             <TabsList
               className="
@@ -309,6 +311,7 @@ const SingleItem = () => {
                 border dark:border-gray-700
                 mb-4
                 text-xs sm:text-base
+                p-2
               "
             >
               <TabsTrigger
@@ -333,7 +336,7 @@ const SingleItem = () => {
 
             <TabsContent
               value="description"
-              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+              className="py-6 px-3 bg-white dark:bg-gray-900 rounded-lg"
             >
               <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
                 Product Description
@@ -357,7 +360,7 @@ const SingleItem = () => {
 
             <TabsContent
               value="specs"
-              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+              className="py-6 px-3 bg-white dark:bg-gray-900 rounded-lg"
             >
               <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
                 Technical Specifications
@@ -408,7 +411,7 @@ const SingleItem = () => {
 
             <TabsContent
               value="reviews"
-              className="py-6 bg-white dark:bg-gray-900 rounded-lg"
+              className="py-6 px-3 bg-white dark:bg-gray-900 rounded-lg"
             >
               <h3 className="font-bold text-lg mb-3 dark:text-gray-100">
                 Customer Reviews
@@ -455,7 +458,7 @@ const SingleItem = () => {
           </Tabs>
         </div>
         {/* Comments Section */}
-        <div className="container mx-auto px-4 py-10">
+        <div className="w-full px-4 py-10 max-w-screen-xl mx-auto">
           <CommentSection productId={item.id} />
         </div>
       </div>
