@@ -298,7 +298,7 @@ const SingleItem = () => {
           </div>
         </div>
         {/* Product Tabs */}
-        <div className="container mx-auto px-2 py-5 sm:px-4">
+        <div className="container mx-auto px-2 py-5 sm:px-1">
           <Tabs defaultValue="description">
             <TabsList
               className="
