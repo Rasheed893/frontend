@@ -111,16 +111,12 @@ const TopSellers = () => {
             1240: { slidesPerView: 4, spaceBetween: 10 },
           }}
           modules={[Pagination, Navigation]}
-          className="mySwiper"
-          style={{ minHeight: "940px" }} // adjust as needed for your ItemCard
+          className="mySwiper h-auto"
         >
           {filteredItems.length > 0 &&
             filteredItems.map((item, index) => (
-              <SwiperSlide
-                key={index}
-                className="h-full w-full flex items-stretch"
-              >
-                <div className="w-full h-full flex">
+              <SwiperSlide key={index} className="flex ">
+                <div className="w-full">
                   <ItemCard item={item} />
                 </div>
               </SwiperSlide>
