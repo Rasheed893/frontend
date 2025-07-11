@@ -44,11 +44,11 @@ const Navbar = () => {
             <img
               src="/RFS.png"
               alt="RFS Logo"
-              className="size-12 object-contain rounded-full border-2 border-white"
+              className="size-15 object-contain rounded-full border-2 border-white ml-3"
             />
           </Link>
         </div>
-        {/* Right items */}
+        {/* right items */}
         <div className="relative flex items-center space-x-3 mt-2 sm:mt-0">
           <div>
             {currentUser ? (
@@ -97,7 +97,7 @@ const Navbar = () => {
           </button>
           <Link
             to={"/cart"}
-            className="p-1 gap-1 sm:px-6 flex items-center bg-blue-600 rounded text-white hover:bg-blue-700 transition"
+            className="btn-primary p-1 gap-1 sm:px-6 flex items-center"
           >
             <IoCartOutline />
             <span className="text-sm font-semibold ml-1">
