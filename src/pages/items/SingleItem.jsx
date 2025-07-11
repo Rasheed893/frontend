@@ -279,24 +279,22 @@ const SingleItem = () => {
             {/* Additional Info */}
             <div className="border-t pt-6 space-y-3 ">
               <div className="flex items-start">
-                <div className="bg-gray-100 dark:bg-gray-800 break-all truncate max-w-[150px]">
+                <div className="dark:text-gray-100 break-all truncate max-w-[150px]">
                   SKU:
                 </div>
-                <div className="bg-gray-100 dark:bg-gray-800">
+                <div className="dark:text-gray-100">
                   RF-{item.id.toString().padStart(4, "0")}
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="font-medium min-w-[150px]">Category:</div>
-                <div className="bg-gray-100 dark:bg-gray-800 capitalize">
+                <div className="dark:text-gray-100 capitalize">
                   {item.category.replace("-", " ")}
                 </div>
               </div>
               <div className="flex items-start">
                 <div className="font-medium min-w-[150px]">Delivery:</div>
-                <div className="bg-gray-100 dark:bg-gray-800">
-                  Within 3 Days
-                </div>
+                <div className="dark:text-gray-100">Within 3 Days</div>
               </div>
             </div>
           </div>
