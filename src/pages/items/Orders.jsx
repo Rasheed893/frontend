@@ -30,7 +30,7 @@ const Orders = () => {
   }
 
   return (
-    <div className="container mx-auto p-2 sm:p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div className="container w-full p-2 sm:p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
       <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800 dark:text-gray-100">
         My Orders
       </h2>

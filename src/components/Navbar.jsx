@@ -36,7 +36,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <header className="max-w-screen-2xl mx-auto px-2 sm:px-4 py-4 bg-gray-900 dark:bg-gray-900 text-white shadow-md">
+    <header className="w-full px-2 sm:px-4 py-4 bg-gray-900 dark:bg-gray-900 text-white shadow-md">
       <nav className="flex flex-col sm:flex-row justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3 mb-2 sm:mb-0">
