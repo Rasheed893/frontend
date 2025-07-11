@@ -99,28 +99,27 @@ const TopSellers = () => {
         </div>
       </div>
       {/* Swiper for Desktop */}
-      <div className="hidden md:block">
+      <div className="hidden md:block px-2">
         <Swiper
-          navigation={true}
+          navigation
           key={selectedCategory}
           spaceBetween={10}
           breakpoints={{
-            768: { slidesPerView: 2, spaceBetween: 10 },
-            1024: { slidesPerView: 2, spaceBetween: 10 },
-            1180: { slidesPerView: 3, spaceBetween: 10 },
-            1240: { slidesPerView: 4, spaceBetween: 10 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 2 },
+            1180: { slidesPerView: 3 },
+            1240: { slidesPerView: 4 },
           }}
           modules={[Pagination, Navigation]}
-          className="mySwiper h-auto"
+          className="mySwiper"
         >
-          {filteredItems.length > 0 &&
-            filteredItems.map((item, index) => (
-              <SwiperSlide key={index} className="flex ">
-                <div className="w-full">
-                  <ItemCard item={item} />
-                </div>
-              </SwiperSlide>
-            ))}
+          {filteredItems.map((item, index) => (
+            <SwiperSlide key={index} className="flex">
+              <div className="w-full">
+                <ItemCard item={item} />
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>
