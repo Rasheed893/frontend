@@ -6,46 +6,20 @@ import {
   itemQuantity,
   removeFromCart,
   clearCart,
-  // setCartItem,
 } from "../../redux/features/cartSlice";
-// import { useAuth } from "../../context/AuthContext";
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
 
-  // const handleIncreaseQty = (id, quantity, stockQuantity) => {
-  //   if (quantity < stockQuantity) {
-  //     dispatch(itemQuantity({ id, quantity: quantity + 1, stockQuantity }));
-  //   } else {
-  //     alert("Not enough stock available!");
-  //   }
-  // };
-
-  // const handleDecreaseQty = (id, quantity, stockQuantity) => {
-  //   if (quantity > 1) {
-  //     dispatch(itemQuantity({ id, quantity: quantity - 1, stockQuantity }));
-  //   }
-  // };
-
-  // const handleRemoveFromCart = (id) => {
-  //   dispatch(removeFromCart({ id }));
-  // };
-
   const handleIncreaseQty = (id, quantity, stockQuantity) => {
     if (typeof id === "string" || typeof id === "number") {
       const newQuantity = quantity + 1;
-
-      // Dispatch the action to update Redux state
       dispatch(itemQuantity({ id, quantity: newQuantity, stockQuantity }));
-
-      // Update sessionStorage
       const updatedCartItems = cartItems.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       );
       sessionStorage.setItem("itemsInCart", JSON.stringify(updatedCartItems));
-    } else {
-      console.error("Invalid id type:", id);
     }
   };
 
@@ -53,52 +27,43 @@ const CartPage = () => {
     if (typeof id === "string" || typeof id === "number") {
       if (quantity > 1) {
         const newQuantity = quantity - 1;
-
-        // Dispatch the action to update Redux state
         dispatch(itemQuantity({ id, quantity: newQuantity, stockQuantity }));
-
-        // Update sessionStorage
         const updatedCartItems = cartItems.map((item) =>
           item.id === id ? { ...item, quantity: newQuantity } : item
         );
         sessionStorage.setItem("itemsInCart", JSON.stringify(updatedCartItems));
       }
-    } else {
-      console.error("Invalid id type:", id);
     }
   };
 
   const handleRemoveFromCart = (id) => {
     if (typeof id === "string" || typeof id === "number") {
       dispatch(removeFromCart({ id }));
-    } else {
-      console.error("Invalid id type:", id);
     }
   };
   const handleClearCart = (id) => {
     dispatch(clearCart({ id }));
   };
 
-  // Calculate the subtotal
   const subtotal = cartItems.reduce((acc, item) => {
     return acc + item.newPrice * item.quantity;
   }, 0);
 
   return (
     <>
-      <div className="flex mt-12 h-full flex-col overflow-hidden bg-white shadow-xl">
-        <div className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-          <div className="flex items-start justify-between">
-            <div className="text-lg font-medium text-gray-900">
+      <div className="flex mt-12 h-full flex-col overflow-hidden bg-white dark:bg-gray-900 shadow-xl w-full">
+        <div className="flex-1 overflow-y-auto px-2 sm:px-6 py-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+            <div className="text-lg font-medium text-gray-900 dark:text-gray-100">
               Shopping cart
             </div>
-            <div className="ml-3 flex h-7 items-center ">
+            <div className="mt-2 sm:mt-0 ml-0 sm:ml-3 flex h-7 items-center">
               <button
                 type="button"
                 onClick={handleClearCart}
-                className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200  "
+                className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200"
               >
-                <span className="">Clear Cart</span>
+                <span>Clear Cart</span>
               </button>
             </div>
           </div>
@@ -106,10 +71,16 @@ const CartPage = () => {
           <div className="mt-8">
             <div className="flow-root">
               {cartItems.length > 0 ? (
-                <ul role="list" className="-my-6 divide-y divide-gray-200">
+                <ul
+                  role="list"
+                  className="-my-6 divide-y divide-gray-200 dark:divide-gray-700"
+                >
                   {cartItems.map((item) => (
-                    <li key={item.id} className="flex py-6">
-                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                    <li
+                      key={item.id}
+                      className="flex flex-col sm:flex-row py-6"
+                    >
+                      <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 dark:border-gray-700 mx-auto sm:mx-0">
                         <img
                           alt=""
                           src={item?.coverImage}
@@ -117,9 +88,9 @@ const CartPage = () => {
                         />
                       </div>
 
-                      <div className="ml-4 flex flex-1 flex-col">
+                      <div className="mt-4 sm:mt-0 sm:ml-4 flex flex-1 flex-col">
                         <div>
-                          <div className="flex justify-between text-base font-medium text-gray-900">
+                          <div className="flex flex-col sm:flex-row justify-between text-base font-medium text-gray-900 dark:text-gray-100">
                             <h3>
                               <Link to="/">{item.title}</Link>
                             </h3>
@@ -127,7 +98,7 @@ const CartPage = () => {
                               AED {(item.newPrice * item.quantity).toFixed(2)}
                             </p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500 capitalize">
+                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 capitalize">
                             <strong>Category:</strong> {item.category}
                           </p>
                           {item.stockQuantity === 0 ? (
@@ -140,11 +111,11 @@ const CartPage = () => {
                             </p>
                           ) : null}
                         </div>
-                        <div className="flex flex-1 items-center justify-between text-sm">
+                        <div className="flex flex-1 items-center justify-between text-sm mt-2">
                           <div className="flex items-center space-x-2">
                             <button
                               type="button"
-                              className="px-2 py-1 bg-gray-200 rounded-md"
+                              className="px-2 py-1 bg-gray-200 dark:bg-gray-700 dark:text-gray-100 rounded-md"
                               onClick={() =>
                                 handleDecreaseQty(
                                   item.id,
@@ -155,12 +126,12 @@ const CartPage = () => {
                             >
                               -
                             </button>
-                            <p className="text-gray-500">
+                            <p className="text-gray-500 dark:text-gray-300">
                               <strong>Qty:</strong> {item.quantity}
                             </p>
                             <button
                               type="button"
-                              className="px-2 py-1 bg-gray-200 rounded-md"
+                              className="px-2 py-1 bg-gray-200 dark:bg-gray-700 dark:text-gray-100 rounded-md"
                               onClick={() =>
                                 handleIncreaseQty(
                                   item.id,
@@ -174,7 +145,7 @@ const CartPage = () => {
                           </div>
                           <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500"
                             onClick={() => handleRemoveFromCart(item.id)}
                           >
                             Remove
@@ -185,34 +156,36 @@ const CartPage = () => {
                   ))}
                 </ul>
               ) : (
-                <p>No Items In Cart</p>
+                <p className="text-gray-500 dark:text-gray-400">
+                  No Items In Cart
+                </p>
               )}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-          <div className="flex justify-between text-base font-medium text-gray-900">
+        <div className="border-t border-gray-200 dark:border-gray-700 px-2 sm:px-6 py-6">
+          <div className="flex justify-between text-base font-medium text-gray-900 dark:text-gray-100">
             <p>Subtotal</p>
             <p>AED {subtotal.toFixed(2)}</p>
           </div>
-          <p className="mt-0.5 text-sm text-gray-500">
+          <p className="mt-0.5 text-sm text-gray-500 dark:text-gray-400">
             Shipping and taxes calculated at checkout.
           </p>
           <div className="mt-6">
             <Link
               to="/checkout"
-              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 dark:bg-indigo-700 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Checkout
             </Link>
           </div>
-          <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+          <div className="mt-6 flex flex-col sm:flex-row justify-center text-center text-sm text-gray-500 dark:text-gray-400 gap-2">
             <Link to="/">
               or
               <button
                 type="button"
-                className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
+                className="font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 ml-1"
               >
                 Continue Shopping
                 <span aria-hidden="true"> &rarr;</span>
