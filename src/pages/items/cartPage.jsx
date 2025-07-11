@@ -175,7 +175,7 @@ const CartPage = () => {
           <div className="mt-6">
             <Link
               to="/checkout"
-              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 dark:bg-indigo-700 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              className="btn-primary flex items-center justify-center rounded-md border border-transparent bg-indigo-600 dark:bg-indigo-700 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               Checkout
             </Link>
