@@ -112,7 +112,7 @@ const TopSellers = () => {
           }}
           modules={[Pagination, Navigation]}
           className="mySwiper"
-          style={{ minHeight: "340px" }} // adjust as needed for your ItemCard
+          style={{ minHeight: "540px" }} // adjust as needed for your ItemCard
         >
           {filteredItems.length > 0 &&
             filteredItems.map((item, index) => (
