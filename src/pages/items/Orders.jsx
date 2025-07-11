@@ -30,7 +30,7 @@ const Orders = () => {
   }
 
   return (
-    <div className="container w-full p-2 sm:p-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div className="w-full p-2 sm:p-6 bg-gray-100 dark:bg-gray-900 min-h-screen overflow-x-auto">
       <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800 dark:text-gray-100">
         My Orders
       </h2>
@@ -44,7 +44,7 @@ const Orders = () => {
           {orders.map((order, index) => (
             <div
               key={order.id}
-              className="border rounded-lg p-4 sm:p-6 shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700"
+              className="border rounded-lg p-4 sm:p-6 shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700 w-full"
             >
               {/* Order ID, Date and Status */}
               <p className="mb-5 font-bold bg-secondary text-white w-10 rounded p-1">
