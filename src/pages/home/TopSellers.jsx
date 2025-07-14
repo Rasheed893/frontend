@@ -215,8 +215,7 @@ const TopSellers = () => {
 
   const visibleItems = showAll ? topSellers : topSellers.slice(0, maxVisible);
 
-  if (loading)
-    return <p className="text-center py-6">Loading top sellers...</p>;
+  if (loading) return <Loading />;
 
   return (
     <div className="py-6">
