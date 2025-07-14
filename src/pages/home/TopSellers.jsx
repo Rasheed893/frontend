@@ -18,17 +18,17 @@ import Loading from "../../components/Loading";
 //   "Horror",
 //   "Adventure",
 // ];
+
 const TopSellers = () => {
   const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
 
   const { data: itemsData = {}, error, isLoading } = useFetchAllItemsQuery();
   const items = itemsData.item || [];
-
-  // Define the maximum number of items to display on the first page
-  const displayLimit = 8; // For example, show up to 8 items
+  console.log("Items:", items);
 
   // Extract unique categories from items
   const categories = Array.from(new Set(items.map((item) => item.category)));
+  console.log("Categories:", categories);
 
   const filteredItems = Array.isArray(items)
     ? selectedCategory === "Choose a genre"
@@ -38,9 +38,6 @@ const TopSellers = () => {
             item.category.toLowerCase() === selectedCategory.toLowerCase()
         )
     : [];
-
-  // Slice the filtered items to display only a limited number
-  const itemsToDisplay = filteredItems.slice(0, displayLimit);
 
   if (isLoading) {
     return (
@@ -53,7 +50,6 @@ const TopSellers = () => {
   if (error) {
     return <div>Error loading items</div>;
   }
-
   return (
     <div className="py-6">
       <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
@@ -88,8 +84,8 @@ const TopSellers = () => {
       {/* Modern Mobile Layout */}
       <div className="block md:hidden">
         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
-          {itemsToDisplay.length > 0 ? (
-            itemsToDisplay.map((item, index) => (
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
               <div key={index} className="flex-shrink-0 w-56">
                 <ItemCard item={item} />
               </div>
@@ -103,9 +99,9 @@ const TopSellers = () => {
       </div>
       {/* Responsive Grid for Desktop */}
       <div className="hidden md:block px-2">
-        {itemsToDisplay.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {itemsToDisplay.map((item, index) => (
+        {filteredItems.length > 0 ? (
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {filteredItems.map((item, index) => (
               <ItemCard key={index} item={item} />
             ))}
           </div>
@@ -117,174 +113,78 @@ const TopSellers = () => {
       </div>
     </div>
   );
+
+  // return (
+  //   <div className="py-6">
+  //     <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
+  //       Top Sellers
+  //     </h2>
+  //     {/* categories Selection */}
+  //     <div className="w-full flex justify-center md:justify-start mb-3">
+  //       <div className="w-[95%] sm:w-[90%] md:w-[300px]">
+  //         <select
+  //           onChange={(e) => setSelectedCategory(e.target.value)}
+  //           name="category"
+  //           id="category"
+  //           className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
+  //         >
+  //           {categories.map((category, index) => (
+  //             <option key={index} value={category}>
+  //               {category}
+  //             </option>
+  //           ))}
+  //         </select>
+  //       </div>
+  //     </div>
+  //     {/* See All Link */}
+  //     <div className="flex justify-end mb-2 px-4 font-semibold">
+  //       <Link
+  //         to="/all-products"
+  //         className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
+  //       >
+  //         See All <FiArrowRight />
+  //       </Link>
+  //     </div>
+  //     {/* Modern Mobile Layout */}
+  //     <div className="block md:hidden">
+  //       <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+  //         {filteredItems.length > 0 ? (
+  //           filteredItems.map((item, index) => (
+  //             <div key={index} className="flex-shrink-0 w-56">
+  //               <ItemCard item={item} />
+  //             </div>
+  //           ))
+  //         ) : (
+  //           <div className="text-gray-500 dark:text-gray-400">
+  //             No items found.
+  //           </div>
+  //         )}
+  //       </div>
+  //     </div>
+  //     {/* Swiper for Desktop */}
+  //     <div className="hidden md:block px-2">
+  //       <Swiper
+  //         navigation
+  //         key={selectedCategory}
+  //         spaceBetween={20}
+  //         breakpoints={{
+  //           768: { slidesPerView: 2 },
+  //           1024: { slidesPerView: 2 },
+  //           1180: { slidesPerView: 3 },
+  //           1240: { slidesPerView: 4 },
+  //         }}
+  //         modules={[Pagination, Navigation]}
+  //         className="mySwiper"
+  //       >
+  //         {filteredItems.map((item, index) => (
+  //           <SwiperSlide key={index} className="flex">
+  //             <ItemCard item={item} />
+  //           </SwiperSlide>
+  //         ))}
+  //       </Swiper>
+  //     </div>
+  //   </div>
+  // );
 };
-
-// const TopSellers = () => {
-//   const [selectedCategory, setSelectedCategory] = useState("Choose a genre");
-
-//   const { data: itemsData = {}, error, isLoading } = useFetchAllItemsQuery();
-//   const items = itemsData.item || [];
-//   console.log("Items:", items);
-
-//   // Extract unique categories from items
-//   const categories = Array.from(new Set(items.map((item) => item.category)));
-//   console.log("Categories:", categories);
-
-//   const filteredItems = Array.isArray(items)
-//     ? selectedCategory === "Choose a genre"
-//       ? items
-//       : items.filter(
-//           (item) =>
-//             item.category.toLowerCase() === selectedCategory.toLowerCase()
-//         )
-//     : [];
-
-//   if (isLoading) {
-//     return (
-//       <div>
-//         <Loading />
-//       </div>
-//     );
-//   }
-
-//   if (error) {
-//     return <div>Error loading items</div>;
-//   }
-//   return (
-//     <div className="py-6">
-//       <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
-//         Top Sellers
-//       </h2>
-//       {/* categories Selection */}
-//       <div className="w-full flex justify-center md:justify-start mb-3">
-//         <div className="w-[95%] sm:w-[90%] md:w-[300px]">
-//           <select
-//             onChange={(e) => setSelectedCategory(e.target.value)}
-//             name="category"
-//             id="category"
-//             className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
-//           >
-//             {categories.map((category, index) => (
-//               <option key={index} value={category}>
-//                 {category}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       {/* See All Link */}
-//       <div className="flex justify-end mb-2 px-4 font-semibold">
-//         <Link
-//           to="/all-products"
-//           className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
-//         >
-//           See All <FiArrowRight />
-//         </Link>
-//       </div>
-//       {/* Modern Mobile Layout */}
-//       <div className="block md:hidden">
-//         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
-//           {filteredItems.length > 0 ? (
-//             filteredItems.map((item, index) => (
-//               <div key={index} className="flex-shrink-0 w-56">
-//                 <ItemCard item={item} />
-//               </div>
-//             ))
-//           ) : (
-//             <div className="text-gray-500 dark:text-gray-400">
-//               No items found.
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//       {/* Responsive Grid for Desktop */}
-//       <div className="hidden md:block px-2">
-//         {filteredItems.length > 0 ? (
-//           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-//             {filteredItems.map((item, index) => (
-//               <ItemCard key={index} item={item} />
-//             ))}
-//           </div>
-//         ) : (
-//           <div className="text-gray-500 dark:text-gray-400">
-//             No items found for the selected category.
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-
-//   // return (
-//   //   <div className="py-6">
-//   //     <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
-//   //       Top Sellers
-//   //     </h2>
-//   //     {/* categories Selection */}
-//   //     <div className="w-full flex justify-center md:justify-start mb-3">
-//   //       <div className="w-[95%] sm:w-[90%] md:w-[300px]">
-//   //         <select
-//   //           onChange={(e) => setSelectedCategory(e.target.value)}
-//   //           name="category"
-//   //           id="category"
-//   //           className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
-//   //         >
-//   //           {categories.map((category, index) => (
-//   //             <option key={index} value={category}>
-//   //               {category}
-//   //             </option>
-//   //           ))}
-//   //         </select>
-//   //       </div>
-//   //     </div>
-//   //     {/* See All Link */}
-//   //     <div className="flex justify-end mb-2 px-4 font-semibold">
-//   //       <Link
-//   //         to="/all-products"
-//   //         className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
-//   //       >
-//   //         See All <FiArrowRight />
-//   //       </Link>
-//   //     </div>
-//   //     {/* Modern Mobile Layout */}
-//   //     <div className="block md:hidden">
-//   //       <div className="flex gap-3 overflow-x-auto pb-2 px-2">
-//   //         {filteredItems.length > 0 ? (
-//   //           filteredItems.map((item, index) => (
-//   //             <div key={index} className="flex-shrink-0 w-56">
-//   //               <ItemCard item={item} />
-//   //             </div>
-//   //           ))
-//   //         ) : (
-//   //           <div className="text-gray-500 dark:text-gray-400">
-//   //             No items found.
-//   //           </div>
-//   //         )}
-//   //       </div>
-//   //     </div>
-//   //     {/* Swiper for Desktop */}
-//   //     <div className="hidden md:block px-2">
-//   //       <Swiper
-//   //         navigation
-//   //         key={selectedCategory}
-//   //         spaceBetween={20}
-//   //         breakpoints={{
-//   //           768: { slidesPerView: 2 },
-//   //           1024: { slidesPerView: 2 },
-//   //           1180: { slidesPerView: 3 },
-//   //           1240: { slidesPerView: 4 },
-//   //         }}
-//   //         modules={[Pagination, Navigation]}
-//   //         className="mySwiper"
-//   //       >
-//   //         {filteredItems.map((item, index) => (
-//   //           <SwiperSlide key={index} className="flex">
-//   //             <ItemCard item={item} />
-//   //           </SwiperSlide>
-//   //         ))}
-//   //       </Swiper>
-//   //     </div>
-//   //   </div>
-//   // );
-// };
 
 export default TopSellers;
