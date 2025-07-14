@@ -100,9 +100,11 @@ const TopSellers = () => {
       {/* Responsive Grid for Desktop */}
       <div className="hidden md:block px-2">
         {filteredItems.length > 0 ? (
-          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 overflow-x-auto gap-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-fr">
             {filteredItems.map((item, index) => (
-              <ItemCard key={index} item={item} />
+              <div key={index} className="h-full w-full flex">
+                <ItemCard item={item} />
+              </div>
             ))}
           </div>
         ) : (
