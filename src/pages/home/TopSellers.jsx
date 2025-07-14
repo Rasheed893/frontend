@@ -40,79 +40,79 @@
 //     : [];
 
 //   if (isLoading) {
-//     return (
-//       <div>
-//         <Loading />
-//       </div>
-//     );
-//   }
-
-//   if (error) {
-//     return <div>Error loading items</div>;
-//   }
 //   return (
-//     <div className="py-6">
-//       <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
-//         Top Sellers
-//       </h2>
-//       {/* categories Selection */}
-//       <div className="w-full flex justify-center md:justify-start mb-3">
-//         <div className="w-[95%] sm:w-[90%] md:w-[300px]">
-//           <select
-//             onChange={(e) => setSelectedCategory(e.target.value)}
-//             name="category"
-//             id="category"
-//             className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
-//           >
-//             {categories.map((category, index) => (
-//               <option key={index} value={category}>
-//                 {category}
-//               </option>
-//             ))}
-//           </select>
-//         </div>
-//       </div>
-//       {/* See All Link */}
-//       <div className="flex justify-end mb-2 px-4 font-semibold">
-//         <Link
-//           to="/all-products"
-//           className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
+//     <div>
+//       <Loading />
+//     </div>
+//   );
+// }
+
+// if (error) {
+//   return <div>Error loading items</div>;
+// }
+// return (
+//   <div className="py-6">
+//     <h2 className="text-2xl sm:text-3xl font-semibold mb-4 sm:mb-6 text-gray-800 dark:text-gray-100">
+//       Top Sellers
+//     </h2>
+//     {/* categories Selection */}
+//     <div className="w-full flex justify-center md:justify-start mb-3">
+//       <div className="w-[95%] sm:w-[90%] md:w-[300px]">
+//         <select
+//           onChange={(e) => setSelectedCategory(e.target.value)}
+//           name="category"
+//           id="category"
+//           className="w-full border bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded-lg px-3 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-100 transition duration-200"
 //         >
-//           See All <FiArrowRight />
-//         </Link>
+//           {categories.map((category, index) => (
+//             <option key={index} value={category}>
+//               {category}
+//             </option>
+//           ))}
+//         </select>
 //       </div>
-//       {/* Modern Mobile Layout */}
-//       <div className="block md:hidden">
-//         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
-//           {filteredItems.length > 0 ? (
-//             filteredItems.map((item, index) => (
-//               <div key={index} className="flex-shrink-0 w-56">
-//                 <ItemCard item={item} />
-//               </div>
-//             ))
-//           ) : (
-//             <div className="text-gray-500 dark:text-gray-400">
-//               No items found.
-//             </div>
-//           )}
-//         </div>
-//       </div>
-//       {/* Responsive Grid for Desktop */}
-//       <div className="hidden md:block px-2">
+//     </div>
+//     {/* See All Link */}
+//     <div className="flex justify-end mb-2 px-4 font-semibold">
+//       <Link
+//         to="/all-products"
+//         className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
+//       >
+//         See All <FiArrowRight />
+//       </Link>
+//     </div>
+//     {/* Modern Mobile Layout */}
+//     <div className="block md:hidden">
+//       <div className="flex gap-3 overflow-x-auto pb-2 px-2">
 //         {filteredItems.length > 0 ? (
-//           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-//             {filteredItems.map((item, index) => (
-//               <ItemCard key={index} item={item} />
-//             ))}
-//           </div>
+//           filteredItems.map((item, index) => (
+//             <div key={index} className="flex-shrink-0 w-56">
+//               <ItemCard item={item} />
+//             </div>
+//           ))
 //         ) : (
 //           <div className="text-gray-500 dark:text-gray-400">
-//             No items found for the selected category.
+//             No items found.
 //           </div>
 //         )}
 //       </div>
 //     </div>
-//   );
+//     {/* Responsive Grid for Desktop */}
+//     <div className="hidden md:block px-2">
+//       {filteredItems.length > 0 ? (
+//         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+//           {filteredItems.map((item, index) => (
+//             <ItemCard key={index} item={item} />
+//           ))}
+//         </div>
+//       ) : (
+//         <div className="text-gray-500 dark:text-gray-400">
+//           No items found for the selected category.
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// );
 
 //   // return (
 //   //   <div className="py-6">
@@ -235,8 +235,8 @@ const TopSellers = () => {
       {/* Mobile Scroll */}
       <div className="md:hidden px-2">
         <div className="flex overflow-x-auto gap-3 pb-2">
-          {topSellers.map((item) => (
-            <div key={item._id} className="flex-shrink-0 w-56">
+          {topSellers.map((item, index) => (
+            <div key={index} className="flex-shrink-0 w-56">
               <ItemCard item={item} />
             </div>
           ))}
@@ -246,8 +246,8 @@ const TopSellers = () => {
       {/* Desktop Grid */}
       <div className="hidden md:block px-2">
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {visibleItems.map((item) => (
-            <ItemCard key={item._id} item={item} />
+          {visibleItems.map((item, index) => (
+            <ItemCard key={index} item={item} />
           ))}
         </div>
 
