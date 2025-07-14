@@ -103,7 +103,7 @@ const TopSellers = () => {
         <Swiper
           navigation
           key={selectedCategory}
-          spaceBetween={10}
+          spaceBetween={20}
           breakpoints={{
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 2 },
@@ -115,9 +115,7 @@ const TopSellers = () => {
         >
           {filteredItems.map((item, index) => (
             <SwiperSlide key={index} className="flex">
-              <div className="w-full">
-                <ItemCard item={item} />
-              </div>
+              <ItemCard item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
