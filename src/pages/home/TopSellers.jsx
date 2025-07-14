@@ -192,6 +192,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ItemCard from "../items/ItemCard";
+import { FiArrowRight } from "react-icons/fi";
 
 const TopSellers = () => {
   const [topSellers, setTopSellers] = useState([]);
@@ -220,6 +221,15 @@ const TopSellers = () => {
       <h2 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-gray-100">
         Top Sellers This Month
       </h2>
+      {/* See All Link */}
+      <div className="flex justify-end mb-2 px-4 font-semibold">
+        <Link
+          to="/all-products"
+          className="text-blue-500 flex items-center gap-1 hover:underline text-blue-700 dark:text-blue-400"
+        >
+          See All <FiArrowRight />
+        </Link>
+      </div>
 
       {/* Mobile Scroll */}
       <div className="md:hidden px-2">
