@@ -1,46 +1,34 @@
-import React, { useEffect, useState } from "react";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "./Recommended.css";
-
-// import required modules
-import { EffectCoverflow, Pagination } from "swiper/modules";
+import React from "react";
+import { useAuth } from "../../../context/AuthContext";
+import { useGetRecommendedItemsQuery } from "../../../redux/features/itemAPI";
 import ItemCard from "../../items/ItemCard";
-import { useFetchAllItemsQuery } from "../../../redux/features/itemAPI";
 import Loading from "../../../components/Loading";
 
 const Recommended = () => {
-  const { data: itemsData = {}, error, isLoading } = useFetchAllItemsQuery();
-  const items = itemsData.item || [];
+  const { currentUser } = useAuth();
+  const email = currentUser?.email;
 
-  if (isLoading) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
-  }
+  const { data, isLoading, isError } = useGetRecommendedItemsQuery(email, {
+    skip: !email, // avoid firing before user is loaded
+  });
 
-  if (error) {
-    return <div>Error loading items</div>;
-  }
+  const items = data?.recommended || [];
+
+  if (isLoading) return <Loading />;
+  if (isError) return <div>Error loading recommended items</div>;
+
   return (
     <div className="py-16">
       <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
         More For You
       </h2>
 
-      {/* Mobile: Horizontal Scroll */}
+      {/* Mobile Layout */}
       <div className="block md:hidden">
         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
           {items.length > 0 ? (
-            items.map((item, index) => (
-              <div key={index} className="flex-shrink-0 w-56">
+            items.map((item) => (
+              <div key={item.id} className="flex-shrink-0 w-56">
                 <ItemCard item={item} />
               </div>
             ))
@@ -52,11 +40,11 @@ const Recommended = () => {
         </div>
       </div>
 
-      {/* Desktop: Swiper */}
+      {/* Desktop Layout */}
       <div className="hidden md:block px-2">
         <div className="flex gap-8 overflow-x-auto pb-2">
           {items.length > 0 &&
-            items.map((item, index) => <ItemCard item={item} />)}
+            items.map((item) => <ItemCard key={item.id} item={item} />)}
         </div>
       </div>
     </div>
@@ -65,6 +53,74 @@ const Recommended = () => {
 
 export default Recommended;
 
+// import React, { useEffect, useState } from "react";
+
+// import { Swiper, SwiperSlide } from "swiper/react";
+
+// // Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/effect-coverflow";
+// import "swiper/css/pagination";
+// import "./Recommended.css";
+
+// // import required modules
+// import { EffectCoverflow, Pagination } from "swiper/modules";
+// import ItemCard from "../../items/ItemCard";
+// import { useFetchAllItemsQuery } from "../../../redux/features/itemAPI";
+// import Loading from "../../../components/Loading";
+
+// const Recommended = () => {
+//   const { data: itemsData = {}, error, isLoading } = useFetchAllItemsQuery();
+//   const items = itemsData.item || [];
+
+//   if (isLoading) {
+//     return (
+//       <div>
+//         <Loading />
+//       </div>
+//     );
+//   }
+
+//   if (error) {
+//     return <div>Error loading items</div>;
+//   }
+//   return (
+//     <div className="py-16">
+//       <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-100">
+//         More For You
+//       </h2>
+
+//       {/* Mobile: Horizontal Scroll */}
+//       <div className="block md:hidden">
+//         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+//           {items.length > 0 ? (
+//             items.map((item, index) => (
+//               <div key={index} className="flex-shrink-0 w-56">
+//                 <ItemCard item={item} />
+//               </div>
+//             ))
+//           ) : (
+//             <div className="text-gray-500 dark:text-gray-400 w-full text-center py-10">
+//               No recommended items found.
+//             </div>
+//           )}
+//         </div>
+//       </div>
+
+//       {/* Desktop: Swiper */}
+//       <div className="hidden md:block px-2">
+//         <div className="flex gap-8 overflow-x-auto pb-2">
+//           {items.length > 0 &&
+//             items.map((item, index) => <ItemCard item={item} />)}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Recommended;
+
+// ************
 // import React, { useEffect, useState } from "react";
 // import { Swiper, SwiperSlide } from "swiper/react";
 
