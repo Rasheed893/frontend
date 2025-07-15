@@ -68,7 +68,7 @@ const itemsApi = createApi({
       query: (searchTerm) => `/search?title=${searchTerm}`,
     }),
     getRecommendedItems: builder.query({
-      query: (email) => `/items/recommended/${email}`,
+      query: (email) => `/recommended/${email}`,
     }),
   }),
 });
