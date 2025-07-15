@@ -81,5 +81,6 @@ export const {
   useDeleteItemMutation,
   useUpdateItemQuantityMutation,
   useSearchItemsQuery,
+  useGetRecommendedItemsQuery,
 } = itemsApi;
 export default itemsApi;
