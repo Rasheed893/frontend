@@ -53,7 +53,7 @@ const Recommended = () => {
       </div>
 
       {/* Desktop: Swiper */}
-      <div className="hidden md:block">
+      <div className="hidden md:block py-16">
         <Swiper
           effect={"coverflow"}
           grabCursor={true}
