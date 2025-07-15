@@ -54,7 +54,7 @@ const Recommended = () => {
 
       {/* Desktop: Swiper */}
       <div className="hidden md:block px-2">
-        <div className="flex gap-3 overflow-x-auto pb-2 px-2">
+        <div className="flex gap-8 overflow-x-auto pb-2">
           {items.length > 0 &&
             items.map((item, index) => <ItemCard item={item} />)}
         </div>
