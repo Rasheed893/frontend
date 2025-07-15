@@ -53,31 +53,11 @@ const Recommended = () => {
       </div>
 
       {/* Desktop: Swiper */}
-      <div className="hidden md:block py-16">
-        <Swiper
-          effect={"coverflow"}
-          grabCursor={true}
-          centeredSlides={true}
-          spaceBetween={20}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          pagination={true}
-          modules={[EffectCoverflow, Pagination]}
-          className="mySwiper"
-        >
+      <div className="hidden md:block px-2">
+        <div className="flex gap-3 overflow-x-auto pb-2 px-2">
           {items.length > 0 &&
-            items.map((item, index) => (
-              <SwiperSlide key={index}>
-                <ItemCard item={item} />
-              </SwiperSlide>
-            ))}
-        </Swiper>
+            items.map((item, index) => <ItemCard item={item} />)}
+        </div>
       </div>
     </div>
   );
