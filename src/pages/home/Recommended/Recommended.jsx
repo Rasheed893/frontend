@@ -28,7 +28,7 @@ const Recommended = () => {
         <div className="flex gap-3 overflow-x-auto pb-2 px-2">
           {items.length > 0 ? (
             items.map((item) => (
-              <div key={item.id} className="flex-shrink-0 w-56">
+              <div key={item.id} className="flex-shrink-0 w-70">
                 <ItemCard item={item} />
               </div>
             ))
