@@ -44,13 +44,7 @@ const Recommended = () => {
       <div className="hidden md:block px-2">
         <div className="flex gap-8 overflow-x-auto pb-2">
           {items.length > 0 &&
-            items.map((item) => (
-              <ItemCard
-                key={item.id}
-                item={item}
-                className="w-64 h-72 shrink-0"
-              />
-            ))}
+            items.map((item) => <ItemCard key={item.id} item={item} />)}
         </div>
       </div>
     </div>
