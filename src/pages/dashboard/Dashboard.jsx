@@ -331,7 +331,7 @@ const Dashboard = () => {
             </svg>
           </div>
           <div className="min-w-0">
-            <span className="block text-2xl font-bold text-gray-800 dark:text-gray-100 truncate">
+            <span className="block text-2xl font-bold text-gray-800 dark:text-gray-100 break-words">
               ${data?.totalSales?.toFixed(2)}
             </span>
             <span
