@@ -32,11 +32,11 @@ const TabbedTopItems = ({ mostPurchased = [], leastPurchased = [] }) => {
   return (
     <div className="col-span-2 row-span-3 bg-white shadow rounded-lg flex flex-col">
       {/* Header with Tabs */}
-      <div className="flex items-center justify-between px-6 py-5 font-semibold border-b border-gray-100">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-6 py-5 font-semibold border-b border-gray-100">
         <span>
           {tab === "most" ? "Most Purchased Items" : "Least Purchased Items"}
         </span>
-        <div className="flex space-x-2">
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-start sm:justify-end">
           <button
             onClick={() => setTab("most")}
             className={`px-3 py-1 rounded ${
