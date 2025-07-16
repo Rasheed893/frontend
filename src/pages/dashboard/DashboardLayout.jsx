@@ -759,22 +759,22 @@ const DashboardLayout = () => {
               <h1 className="text-3xl font-bold">Dashboard</h1>
               <p className="text-gray-600">Store Inventory</p>
             </div>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 w-full mt-2">
               <Link
                 to="/dashboard/manage-items"
-                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors"
+                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors w-full sm:w-auto"
               >
                 Manage Items
               </Link>
               <Link
                 to="/dashboard/add-new-item"
-                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors"
+                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors w-full sm:w-auto"
               >
                 Add New Item
               </Link>
               <Link
                 to="/dashboard/manage-orders"
-                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors"
+                className="btn-primary border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white rounded-md px-4 py-2 transition-colors w-full sm:w-auto"
               >
                 Manage Orders
               </Link>
