@@ -313,7 +313,7 @@ const Dashboard = () => {
             </span>
           </div>
         </div>
-        <div className="flex items-center p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-lg">
+        <div className="flex items-center p-4 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-lg min-w-0">
           <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 dark:bg-green-900 rounded-full mr-6">
             <svg
               aria-hidden="true"
@@ -330,8 +330,8 @@ const Dashboard = () => {
               />
             </svg>
           </div>
-          <div>
-            <span className="block text-2xl font-bold text-gray-800 dark:text-gray-100">
+          <div className="min-w-0">
+            <span className="block text-2xl font-bold text-gray-800 dark:text-gray-100 truncate">
               ${data?.totalSales?.toFixed(2)}
             </span>
             <span
