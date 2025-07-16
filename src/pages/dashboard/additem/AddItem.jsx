@@ -127,7 +127,7 @@ const AddItem = () => {
   if (isError) return <div>Error: {isError.message}</div>;
 
   return (
-    <div className="max-w-lg mx-auto p-4 bg-white rounded-lg shadow">
+    <div className="max-w-lg mx-auto p-4 bg-white dark:bg-gray-900 rounded-lg shadow text-gray-900 dark:text-gray-100">
       <h2 className="text-2xl font-bold mb-4">Add New Product</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Basic fields */}
@@ -184,7 +184,7 @@ const AddItem = () => {
                 arr[idx] = e.target.value;
                 setFeatures(arr);
               }}
-              className="flex-1 border rounded px-2 py-1"
+              className="flex-1 border rounded px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="Feature description"
             />
             <button
@@ -201,7 +201,7 @@ const AddItem = () => {
         ))}
         <button
           type="button"
-          className="text-blue-600"
+          className="text-blue-600 dark:text-blue-400"
           onClick={() => setFeatures([...features, ""])}
         >
           + Add Feature
@@ -219,7 +219,7 @@ const AddItem = () => {
                 arr[idx] = e.target.value;
                 setColorOptions(arr);
               }}
-              className="flex-1 border rounded px-2 py-1"
+              className="flex-1 border rounded px-2 py-1 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="Color name"
             />
             <button
@@ -236,94 +236,11 @@ const AddItem = () => {
         ))}
         <button
           type="button"
-          className="text-blue-600"
+          className="text-blue-600 dark:text-blue-400"
           onClick={() => setColorOptions([...colorOptions, ""])}
         >
           + Add Color
         </button>
-
-        {/* Reviews */}
-        {/* <label className="block font-medium mt-6">Reviews</label>
-        {reviews.map((r, idx) => (
-          <div key={idx} className="border p-2 rounded mb-2 space-y-2">
-            <InputField
-              label="User Name"
-              name={`reviews[${idx}].userName`}
-              register={register}
-              value={r.userName}
-              onChange={(e) => {
-                const arr = [...reviews];
-                arr[idx].userName = e.target.value;
-                setReviews(arr);
-              }}
-            />
-            <InputField
-              label="Date"
-              name={`reviews[${idx}].date`}
-              type="date"
-              register={register}
-              value={r.date}
-              onChange={(e) => {
-                const arr = [...reviews];
-                arr[idx].date = e.target.value;
-                setReviews(arr);
-              }}
-            />
-            <InputField
-              label="Rating"
-              name={`reviews[${idx}].rating`}
-              type="number"
-              step="0.1"
-              min="1"
-              max="5"
-              register={register}
-              value={r.rating}
-              onChange={(e) => {
-                const arr = [...reviews];
-                arr[idx].rating = e.target.value;
-                setReviews(arr);
-              }}
-            />
-            <InputField
-              label="Comment"
-              name={`reviews[${idx}].comment`}
-              type="textarea"
-              register={register}
-              value={r.comment}
-              onChange={(e) => {
-                const arr = [...reviews];
-                arr[idx].comment = e.target.value;
-                setReviews(arr);
-              }}
-            />
-            <button
-              type="button"
-              className="text-red-500"
-              onClick={() => {
-                const arr = reviews.filter((_, i) => i !== idx);
-                setReviews(
-                  arr.length
-                    ? arr
-                    : [{ userName: "", date: "", rating: "", comment: "" }]
-                );
-              }}
-            >
-              Remove Review
-            </button>
-          </div>
-        ))}
-        <button
-          type="button"
-          className="text-blue-600 mb-4"
-          onClick={() =>
-            setReviews([
-              ...reviews,
-              { userName: "", date: "", rating: "", comment: "" },
-            ])
-          }
-        >
-          + Add Review
-        </button> */}
 
         {/* Category & Pricing */}
         <SelectField
@@ -343,13 +260,6 @@ const AddItem = () => {
           <input type="checkbox" {...register("trending")} className="mr-2" />{" "}
           Trending
         </label>
-        {/* <InputField
-          label="Rating"
-          name="rating"
-          type="number"
-          step="0.01"
-          register={register}
-        /> */}
         <InputField
           label="Old Price"
           name="oldPrice"
@@ -376,7 +286,7 @@ const AddItem = () => {
         <input
           type="file"
           accept="image/*"
-          className="mb-4"
+          className="mb-4 file:bg-blue-600 file:text-white file:rounded file:px-3 file:py-1 dark:file:bg-blue-800"
           onChange={(e) => setCoverImageFile(e.target.files[0])}
         />
         <label>Gallery Images (max 4)</label>
@@ -384,7 +294,7 @@ const AddItem = () => {
           type="file"
           accept="image/*"
           multiple
-          className="mb-6"
+          className="mb-6 file:bg-blue-600 file:text-white file:rounded file:px-3 file:py-1 dark:file:bg-blue-800"
           onChange={(e) => {
             const files = Array.from(e.target.files);
             if (files.length > 4) return alert("Max 4 images.");
@@ -395,7 +305,7 @@ const AddItem = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          className="w-full py-2 bg-blue-600 dark:bg-blue-700 text-white rounded hover:bg-blue-700 dark:hover:bg-blue-800 transition"
         >
           {isSubmitting ? "Submitting…" : "Add Item"}
         </button>
