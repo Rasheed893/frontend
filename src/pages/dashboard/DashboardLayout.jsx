@@ -507,7 +507,7 @@ const DashboardLayout = () => {
       <aside
         ref={asideRef}
         className={`
-    fixed md:static inset-y-0 left-0 z-50 
+    fixed md:static inset-y-0 left-0 z-50
     ${isMobile ? "w-48" : "w-20"} flex-shrink-0 flex flex-col
     bg-gray-900 text-gray-500 overflow-x-auto md:overflow-y-auto max-h-[100vh]
     transform transition-transform duration-300 ease-in-out
@@ -543,22 +543,23 @@ const DashboardLayout = () => {
           </button>
         )}
 
+        {/* Logo */}
         <div className="flex items-center justify-center h-20 bg-purple-600">
           <a href="/">
             <img src="/RFS.png" alt="Logo" className="h-10 w-auto" />
           </a>
         </div>
 
-        <nav className="flex md:flex-col justify-around md:py-6 space-x-4 md:space-x-0 md:space-y-4">
+        {/* Navigation */}
+        <nav className="flex flex-col py-6 space-y-2 px-2">
           <NavLink
             to="/dashboard/manage-orders"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center 
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
@@ -575,17 +576,18 @@ const DashboardLayout = () => {
                 d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
               />
             </svg>
-            {isMobile && <span>Manage Orders</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Manage Orders
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center 
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
@@ -602,85 +604,86 @@ const DashboardLayout = () => {
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
               />
             </svg>
-            {isMobile && <span>Dashboard</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Dashboard
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/add-new-item"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center 
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
             <HiViewGridAdd className="h-6 w-6" />
-            {isMobile && <span>Add New Item</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Add New Item
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/manage-items"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
             <MdOutlineManageHistory className="h-6 w-6" />
-            {isMobile && <span>Manage Items</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Manage Items
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/slides-managment"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center 
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
             <RiAdvertisementLine className="h-6 w-6" />
-            {isMobile && <span>Slides Managments</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Slides Management
+            </span>
           </NavLink>
           <NavLink
             to="/dashboard/promo-managment"
             className={({ isActive }) =>
-              `p-3 rounded-lg flex items-center 
-         ${
-           isActive
-             ? "bg-white text-purple-600"
-             : "hover:bg-gray-700 hover:text-gray-400"
-         }`
+              `p-3 rounded-lg flex items-center gap-2 ${
+                isActive
+                  ? "bg-white text-purple-600"
+                  : "hover:bg-gray-700 hover:text-gray-400"
+              }`
             }
             onClick={() => isMobile && setSidebarOpen(false)}
           >
             <BiSolidOffer className="h-6 w-6" />
-            {isMobile && <span>Promocode Managment</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Promocode Management
+            </span>
           </NavLink>
         </nav>
 
-        <div className="flex md:hidden items-center  h-20 border-t border-gray-700">
+        {/* Logout button */}
+        <div className="flex items-center justify-center h-20 border-t border-gray-700 mt-auto">
           <button
             onClick={handleLogout}
-            className="p-3 hover:text-gray-400 hover:bg-gray-700 rounded-lg"
+            className="p-3 hover:text-gray-400 hover:bg-gray-700 rounded-lg flex items-center gap-2 w-full justify-center"
           >
             <CiLogout className="h-6 w-6" />
-          </button>
-        </div>
-        <div className="hidden md:flex items-center justify-center h-20 border-t border-gray-700">
-          <button
-            onClick={handleLogout}
-            className="p-3 hover:text-gray-400 hover:bg-gray-700 rounded-lg"
-          >
-            <CiLogout className="h-6 w-6" />
-            {isMobile && <span>Log Out</span>}
+            <span className={`${isMobile ? "block" : "hidden"} md:block`}>
+              Log Out
+            </span>
           </button>
         </div>
       </aside>
