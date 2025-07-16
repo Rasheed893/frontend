@@ -508,8 +508,8 @@ const DashboardLayout = () => {
         ref={asideRef}
         className={`
     fixed md:static inset-y-0 left-0 z-50
-    ${isMobile ? "w-48" : "w-20"} flex-shrink-0 flex flex-col
-    bg-gray-900 text-gray-500 overflow-x-auto md:overflow-y-auto max-h-[100vh]
+    ${isMobile ? "w-48" : "w-56"} flex-shrink-0 flex flex-col
+    bg-gray-900 text-gray-500 md:overflow-y-auto max-h-[100vh]
     transform transition-transform duration-300 ease-in-out
     ${
       isMobile
