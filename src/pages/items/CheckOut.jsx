@@ -1782,11 +1782,13 @@ const CheckOut = () => {
                             onChange={(e) => setPromoCode(e.target.value)}
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
                             placeholder="Enter promo code"
+                            disabled={discountPercent > 0} // Disable if promo applied
                           />
                           <button
                             type="button"
                             onClick={handleApplyPromo}
                             className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"
+                            disabled={discountPercent > 0 || !promoCode} // Disable if promo applied or input empty
                           >
                             Apply
                           </button>
@@ -1795,9 +1797,26 @@ const CheckOut = () => {
                             onClick={() => setShowPromoModal(true)}
                             className="text-sm text-blue-600 underline ml-2"
                             title="Show Available Promo Codes"
+                            disabled={discountPercent > 0} // Disable if promo applied
                           >
                             <BiSolidOffer className="size-5" />
                           </button>
+                          {discountPercent > 0 && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPromoCode("");
+                                setDiscountPercent(0);
+                                setDiscountAmount(0);
+                                setIsFreeShipping(false);
+                                setPromoError("");
+                              }}
+                              className="bg-red-500 text-white px-2 rounded hover:bg-red-600 ml-2"
+                              title="Remove Promo"
+                            >
+                              Remove
+                            </button>
+                          )}
                         </div>
                         {promoError && (
                           <p className="text-sm text-red-500">{promoError}</p>
