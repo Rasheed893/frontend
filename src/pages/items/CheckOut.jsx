@@ -1211,7 +1211,8 @@ const CheckOut = () => {
     const fetchShippingPrices = async () => {
       try {
         const response = await fetch(
-          "http://localhost:5000/api/shipping-rate/get"
+          `${getBaseURL()}/api/shipping-rate/get`
+          // "http://localhost:5000/api/shipping-rate/get"
         );
         if (!response.ok) throw new Error("Failed to fetch shipping rates");
 
