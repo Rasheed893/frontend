@@ -1619,7 +1619,7 @@ const CheckOut = () => {
 
                   <div className="lg:col-span-2">
                     <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                      {/* All input fields below, just add dark classes as shown */}
+                      {/* ...other input fields... */}
                       <div className="md:col-span-5">
                         <label
                           htmlFor="full_name"
@@ -1773,6 +1773,7 @@ const CheckOut = () => {
                           placeholder=""
                         />
                       </div>
+                      {/* Promo Code */}
                       <div className="md:col-span-3">
                         <label htmlFor="promo" className="dark:text-gray-200">
                           Promo Code
@@ -1796,35 +1797,6 @@ const CheckOut = () => {
                               isFreeShipping ||
                               !promoCode
                             }
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setShowPromoModal(true)}
-                            className="text-sm text-blue-600 underline ml-2"
-                            title="Show Available Promo Codes"
-                            disabled={discountPercent > 0 || isFreeShipping}
-                          />
-                          {(discountPercent > 0 || isFreeShipping) && (
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setPromoCode("");
-                                setDiscountPercent(0);
-                                setDiscountAmount(0);
-                                setIsFreeShipping(false);
-                                setPromoError("");
-                              }}
-                              className="bg-red-500 text-white px-2 rounded hover:bg-red-600 ml-2"
-                              title="Remove Promo"
-                            >
-                              Remove
-                            </button>
-                          )}
-                          <button
-                            type="button"
-                            onClick={handleApplyPromo}
-                            className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"
-                            disabled={discountPercent > 0 || !promoCode} // Disable if promo applied or input empty
                           >
                             Apply
                           </button>
@@ -1833,11 +1805,11 @@ const CheckOut = () => {
                             onClick={() => setShowPromoModal(true)}
                             className="text-sm text-blue-600 underline ml-2"
                             title="Show Available Promo Codes"
-                            disabled={discountPercent > 0} // Disable if promo applied
+                            disabled={discountPercent > 0 || isFreeShipping}
                           >
                             <BiSolidOffer className="size-5" />
                           </button>
-                          {discountPercent > 0 && (
+                          {(discountPercent > 0 || isFreeShipping) && (
                             <button
                               type="button"
                               onClick={() => {
@@ -1877,6 +1849,7 @@ const CheckOut = () => {
                           </p>
                         )}
                       </div>
+                      {/* Delivery Notes */}
                       <div className="md:col-span-5">
                         <label
                           htmlFor="deliveryNotes"
@@ -1900,6 +1873,7 @@ const CheckOut = () => {
                           clientSecret={clientSecret}
                         />
                       </div>
+                      {/* Card Details */}
                       <div className="md:col-span-5">
                         <label
                           htmlFor="card-element"
@@ -1941,6 +1915,7 @@ const CheckOut = () => {
                         Test card: 4242 4242 4242 4242 | Any future date | Any 3
                         digits
                       </div>
+                      {/* Submit Button */}
                       <div className="md:col-span-5 mt-3">
                         <div className="inline-flex items-center">
                           <input
@@ -1998,6 +1973,7 @@ const CheckOut = () => {
           </div>
         </div>
       </section>
+      {/* Show Promo Modal */}
       {showPromoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white dark:bg-gray-900 w-full max-w-md p-5 rounded-lg shadow-lg max-h-[80vh] overflow-y-auto relative">
