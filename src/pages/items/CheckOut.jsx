@@ -1520,11 +1520,14 @@ const CheckOut = () => {
   const checkPaymentStatus = async (paymentIntentId) => {
     try {
       // Call your new backend endpoint
-      const response = await fetch(`${getBaseURL()}/check-payment-status`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentIntentId }),
-      });
+      const response = await fetch(
+        `${getBaseURL()}/api/payments/check-payment-status`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ paymentIntentId }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Payment verification failed");
