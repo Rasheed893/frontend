@@ -70,61 +70,37 @@ const AdminLogin = () => {
     }
   };
 
-  // const onSubmit = async (data) => {
-  //   console.log(data);
-  //   try {
-  //     const response = await axios.post(
-  //       `${getBaseURL()}/api/auth/admin`,
-  //       data,
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const auth = response.data;
-  //     console.log(auth);
-
-  //     if (auth.token) {
-  //       const expiryTime = Date.now() + 3600 * 1000; // current time + 1 hour
-  //       localStorage.setItem("token", auth.token);
-  //       localStorage.setItem("tokenExpiry", expiryTime);
-  //       Swal.fire("Admin login successfully!");
-  //       navigate("/dashboard");
-  //     }
-  //   } catch (error) {
-  //     setMessage("Please provide valid emai or password", error);
-  //     console.error("Login error:", error);
-  //   }
-  // };
-
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div className="w-full max-w-sm mx-auto bg-[white] shadow-md px-8 pt-6 pb-8 mb-4">
-        <h2 className="text-xl font-semibold mb-4">Admin Dashboard Login</h2>
+    <div className="h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-sm mx-auto bg-white dark:bg-gray-800 shadow-md px-6 pt-6 pb-8 rounded-lg">
+        <div className="flex justify-center mb-4">
+          <img src={logo} alt="Logo" className="h-12 w-12" />
+        </div>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100 text-center">
+          Admin Dashboard Login
+        </h2>
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2"
               htmlFor="username"
             >
               Username
             </label>
             <input
               {...register("username", { required: "username is required" })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               type="text"
               name="username"
               id="username"
               placeholder="Enter your username"
             />
-            {/* <p>{username}</p> */}
             <p className="text-sm text-red-500">{errors.username?.message}</p>
           </div>
           <div className="mb-6">
             <label
-              className="block text-gray-700 text-sm font-bold mb-2"
+              className="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2"
               htmlFor="password"
             >
               Password
@@ -134,10 +110,10 @@ const AdminLogin = () => {
                 required: "Password is required",
                 minLength: {
                   value: 6,
-                  message: "Minimum 6 charecters required",
+                  message: "Minimum 6 characters required",
                 },
               })}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-gray-900 leading-tight focus:outline-none focus:shadow-outline"
               type="password"
               name="password"
               id="password"
@@ -147,7 +123,7 @@ const AdminLogin = () => {
           </div>
           {message && (
             <div
-              className="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 mb-4"
+              className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-3 mb-4"
               role="alert"
             >
               <p>{message}</p>
@@ -155,7 +131,7 @@ const AdminLogin = () => {
           )}
           <div>
             <Button
-              className="btn-blue bg-blue-500 w-full text-white font-bold py-2 px-30 flex items-center mb-2"
+              className="btn-blue bg-blue-500 dark:bg-blue-700 w-full text-white font-bold py-2 px-4 flex items-center justify-center mb-2"
               type="submit"
             >
               <CgLogIn className="mr-2" />
