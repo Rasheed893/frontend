@@ -92,178 +92,74 @@ const ManageOrders = () => {
   if (isError) return <div>Error fetching orders</div>;
 
   return (
-    <div className="p-2 sm:p-6 max-w-screen-xl mx-auto bg-white dark:bg-gray-900 rounded shadow text-gray-900 dark:text-gray-100">
-      <h1 className="text-xl sm:text-2xl font-bold mb-4 text-center">
-        Manage Orders
-      </h1>
+    <div className="h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
+      <div className="w-full max-w-sm mx-auto bg-white dark:bg-gray-800 shadow-md px-6 pt-6 pb-8 rounded-lg">
+        <div className="flex justify-center mb-4">
+          <img src={logo} alt="Logo" className="h-12 w-12" />
+        </div>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100 text-center">
+          Admin Dashboard Login
+        </h2>
 
-      {/* Filter */}
-      <div className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-6 items-center justify-between">
-        <label className="font-medium w-full sm:w-auto">
-          Filter by Status:
-          <select
-            className="ml-2 border px-3 py-1 rounded w-full sm:w-auto mt-2 sm:mt-0 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
-            value={statusFilter}
-            onChange={(e) => {
-              setStatusFilter(e.target.value);
-              setPage(1); // Reset page
-            }}
-          >
-            <option value="">All</option>
-            <option value="Pending">Pending</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Delivered">Delivered</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
-        </label>
-        <label className="font-medium w-full sm:w-auto">
-          Filter by Email:
-          <input
-            type="text"
-            placeholder="Enter email"
-            className="ml-2 border px-3 py-1 rounded w-full sm:w-auto mt-2 sm:mt-0 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
-            value={emailFilter}
-            onChange={(e) => {
-              setEmailFilter(e.target.value);
-              setPage(1);
-            }}
-          />
-        </label>
-      </div>
-
-      {/* Orders Table */}
-      <div className="overflow-x-auto rounded-lg border dark:border-gray-700">
-        <table className="min-w-[700px] sm:table-auto w-full border-collapse text-xs sm:text-sm">
-          <thead className="bg-gray-100 dark:bg-gray-800">
-            <tr>
-              <th className="border px-2 py-2">#</th>
-              <th className="border px-2 py-2">Order ID</th>
-              <th className="border px-2 py-2">Customer</th>
-              <th className="border px-2 py-2">Email</th>
-              <th className="border px-2 py-2">Phone</th>
-              <th className="border px-2 py-2">Address</th>
-              <th className="border px-2 py-2">Products</th>
-              <th className="border px-2 py-2">Total</th>
-              <th className="border px-2 py-2">Payment ID</th>
-              <th className="border px-2 py-2">Promo Code</th>
-              <th className="border px-2 py-2">Status</th>
-              <th className="border px-2 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.length > 0 ? (
-              orders.map((order, index) => (
-                <tr key={order.id}>
-                  <td className="border px-2 py-2 text-center">{index + 1}</td>
-                  <td className="border px-2 py-2">{order.id}</td>
-                  <td className="border px-2 py-2">
-                    {order.customer?.customerName}
-                  </td>
-                  <td className="border px-2 py-2">{order.customer?.email}</td>
-                  <td className="border px-2 py-2">{order.phone}</td>
-                  <td className="border px-2 py-2">
-                    {order.address.city}, {order.address.state},{" "}
-                    {order.address.country} - {order.address.zipcode}
-                  </td>
-                  <td className="border px-2 py-2">
-                    <ul className="list-disc pl-4">
-                      {order.products.map((product, i) => (
-                        <li key={i}>
-                          <strong>Product:</strong>{" "}
-                          {product.productIds?.title || product.productIds}
-                          <br />
-                          <strong>Qty:</strong> {product.quantity}
-                          <br />
-                          <strong>Price:</strong> ${product.price.toFixed(2)}
-                        </li>
-                      ))}
-                    </ul>
-                  </td>
-                  <td className="border px-2 py-2 text-green-600 font-semibold">
-                    ${order.totalPrice.toFixed(2)}
-                  </td>
-                  <td className="border px-2 py-2 text-green-600 font-semibold">
-                    {order.paymentId || "N/A"}
-                  </td>
-                  <td className="border px-2 py-2 text-green-600 font-semibold">
-                    {order.promoCode || "N/A"}
-                  </td>
-                  <td className="border px-2 py-2">
-                    <select
-                      value={order.status}
-                      onChange={(e) =>
-                        handleStatusChange(order.id, e.target.value)
-                      }
-                      className="border rounded px-2 py-1 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Shipped">Shipped</option>
-                      <option value="Delivered">Delivered</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
-                  </td>
-                  <td className="border px-2 py-2 text-center">
-                    <div className="flex flex-col items-center gap-2">
-                      <button
-                        onClick={() => handleDownloadInvoice(order.id)}
-                        title="Download Invoice"
-                        className="text-blue-600 hover:text-blue-800 transition-colors"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={2}
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"
-                          />
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => handleDelete(order.id)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="12" className="text-center py-4">
-                  No orders found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-6">
-        <button
-          className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded disabled:opacity-50"
-          onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          disabled={page === 1}
-        >
-          Previous
-        </button>
-        <span className="text-sm">
-          Page {page} of {totalPages}
-        </span>
-        <button
-          className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded disabled:opacity-50"
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          disabled={page === totalPages}
-        >
-          Next
-        </button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2"
+              htmlFor="username"
+            >
+              Username
+            </label>
+            <input
+              {...register("username", { required: "username is required" })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Enter your username"
+            />
+            <p className="text-sm text-red-500">{errors.username?.message}</p>
+          </div>
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 dark:text-gray-200 text-sm font-bold mb-2"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Minimum 6 characters required",
+                },
+              })}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-100 dark:bg-gray-900 leading-tight focus:outline-none focus:shadow-outline"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter your password"
+            />
+            <p className="text-sm text-red-500">{errors.password?.message}</p>
+          </div>
+          {message && (
+            <div
+              className="bg-red-100 dark:bg-red-900 border-l-4 border-red-500 text-red-700 dark:text-red-300 p-3 mb-4"
+              role="alert"
+            >
+              <p>{message}</p>
+            </div>
+          )}
+          <div>
+            <Button
+              className="btn-blue bg-blue-500 dark:bg-blue-700 w-full text-white font-bold py-2 px-4 flex items-center justify-center mb-2"
+              type="submit"
+            >
+              <CgLogIn className="mr-2" />
+              Login
+            </Button>
+          </div>
+        </form>
       </div>
     </div>
   );
