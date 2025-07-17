@@ -1554,6 +1554,7 @@ const CheckOut = () => {
       if (paymentIntent && paymentIntent.status === "succeeded") {
         await handlePaymentSuccess(paymentIntent, data);
         handleClearCart();
+        console.log("Payment succeeded:", paymentIntent);
         return;
       }
     } catch (error) {
