@@ -1516,7 +1516,64 @@ const CheckOut = () => {
       });
     }
   };
+  // Add this function to your CheckOut.jsx component
+  const checkPaymentStatus = async (paymentIntentId) => {
+    try {
+      // Call your new backend endpoint
+      const response = await fetch(`${getBaseURL()}/check-payment-status`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentIntentId }),
+      });
 
+      if (!response.ok) {
+        throw new Error("Payment verification failed");
+      }
+
+      const { status } = await response.json();
+
+      // Handle different status values
+      switch (status) {
+        case "succeeded":
+          // Payment was successful
+          Swal.fire({
+            icon: "success",
+            title: "Payment Successful",
+            text: "Your payment has been processed successfully!",
+          });
+          return true;
+        case "requires_action":
+          Swal.fire({
+            icon: "warning",
+            title: "Additional Authentication Required",
+            text: "Please complete the authentication process.",
+          });
+          return false;
+        case "requires_payment_method":
+          Swal.fire({
+            icon: "error",
+            title: "Payment Failed",
+            text: "Please try another payment method.",
+          });
+          return false;
+        default:
+          Swal.fire({
+            icon: "info",
+            title: "Payment Status",
+            text: `Current status: ${status}`,
+          });
+          return false;
+      }
+    } catch (error) {
+      console.error("Error checking payment status:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Could not verify payment status. Please contact support.",
+      });
+      return false;
+    }
+  };
   const onSubmit = async (data) => {
     if (!stripe || !elements || !clientSecret) {
       Swal.fire("Error", "Payment system not ready", "error");
@@ -1551,11 +1608,18 @@ const CheckOut = () => {
         return;
       }
 
-      if (paymentIntent && paymentIntent.status === "succeeded") {
-        await handlePaymentSuccess(paymentIntent, data);
-        handleClearCart();
-        console.log("Payment succeeded:", paymentIntent);
-        return;
+      if (paymentIntent) {
+        // First verify the payment on the server
+        const isPaymentVerified = await checkPaymentStatus(paymentIntent.id);
+
+        if (isPaymentVerified) {
+          // Only proceed if the server confirms payment success
+          await handlePaymentSuccess(paymentIntent, data);
+          handleClearCart();
+        } else {
+          // Handle verification failure
+          console.log("Payment verification failed or status not successful");
+        }
       }
     } catch (error) {
       handlePaymentError(error);
