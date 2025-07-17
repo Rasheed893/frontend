@@ -92,15 +92,17 @@ const ManageOrders = () => {
   if (isError) return <div>Error fetching orders</div>;
 
   return (
-    <div className="p-6 max-w-screen-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-center">Manage Orders</h1>
+    <div className="p-2 sm:p-6 max-w-screen-xl mx-auto bg-white dark:bg-gray-900 rounded shadow text-gray-900 dark:text-gray-100">
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 text-center">
+        Manage Orders
+      </h1>
 
       {/* Filter */}
-      <div className="mb-4 flex justify-between items-center">
-        <label className="font-medium">
+      <div className="mb-4 flex flex-col sm:flex-row gap-2 sm:gap-6 items-center justify-between">
+        <label className="font-medium w-full sm:w-auto">
           Filter by Status:
           <select
-            className="ml-2 border px-3 py-1 rounded"
+            className="ml-2 border px-3 py-1 rounded w-full sm:w-auto mt-2 sm:mt-0 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
             value={statusFilter}
             onChange={(e) => {
               setStatusFilter(e.target.value);
@@ -114,12 +116,12 @@ const ManageOrders = () => {
             <option value="Cancelled">Cancelled</option>
           </select>
         </label>
-        <label className="font-medium">
+        <label className="font-medium w-full sm:w-auto">
           Filter by Email:
           <input
             type="text"
             placeholder="Enter email"
-            className="ml-2 border px-3 py-1 rounded"
+            className="ml-2 border px-3 py-1 rounded w-full sm:w-auto mt-2 sm:mt-0 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
             value={emailFilter}
             onChange={(e) => {
               setEmailFilter(e.target.value);
@@ -130,40 +132,40 @@ const ManageOrders = () => {
       </div>
 
       {/* Orders Table */}
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border border-gray-300 text-sm">
-          <thead className="bg-gray-100">
+      <div className="overflow-x-auto rounded-lg border dark:border-gray-700">
+        <table className="min-w-[700px] sm:table-auto w-full border-collapse text-xs sm:text-sm">
+          <thead className="bg-gray-100 dark:bg-gray-800">
             <tr>
-              <th className="border px-3 py-2">#</th>
-              <th className="border px-3 py-2">Order ID</th>
-              <th className="border px-3 py-2">Customer</th>
-              <th className="border px-3 py-2">Email</th>
-              <th className="border px-3 py-2">Phone</th>
-              <th className="border px-3 py-2">Address</th>
-              <th className="border px-15 py-2">Products</th>
-              <th className="border px-3 py-2">Total</th>
-              <th className="border px-3 py-2">Payment ID</th>
-              <th className="border px-3 py-2">Promo Code</th>
-              <th className="border px-3 py-2">Status</th>
-              <th className="border px-3 py-2">Actions</th>
+              <th className="border px-2 py-2">#</th>
+              <th className="border px-2 py-2">Order ID</th>
+              <th className="border px-2 py-2">Customer</th>
+              <th className="border px-2 py-2">Email</th>
+              <th className="border px-2 py-2">Phone</th>
+              <th className="border px-2 py-2">Address</th>
+              <th className="border px-2 py-2">Products</th>
+              <th className="border px-2 py-2">Total</th>
+              <th className="border px-2 py-2">Payment ID</th>
+              <th className="border px-2 py-2">Promo Code</th>
+              <th className="border px-2 py-2">Status</th>
+              <th className="border px-2 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
             {orders.length > 0 ? (
               orders.map((order, index) => (
                 <tr key={order.id}>
-                  <td className="border px-3 py-2 text-center">{index + 1}</td>
-                  <td className="border px-3 py-2">{order.id}</td>
-                  <td className="border px-3 py-2">
+                  <td className="border px-2 py-2 text-center">{index + 1}</td>
+                  <td className="border px-2 py-2">{order.id}</td>
+                  <td className="border px-2 py-2">
                     {order.customer?.customerName}
                   </td>
-                  <td className="border px-3 py-2">{order.customer?.email}</td>
-                  <td className="border px-3 py-2">{order.phone}</td>
-                  <td className="border px-3 py-2">
+                  <td className="border px-2 py-2">{order.customer?.email}</td>
+                  <td className="border px-2 py-2">{order.phone}</td>
+                  <td className="border px-2 py-2">
                     {order.address.city}, {order.address.state},{" "}
                     {order.address.country} - {order.address.zipcode}
                   </td>
-                  <td className="border px-3 py-2">
+                  <td className="border px-2 py-2">
                     <ul className="list-disc pl-4">
                       {order.products.map((product, i) => (
                         <li key={i}>
@@ -177,22 +179,22 @@ const ManageOrders = () => {
                       ))}
                     </ul>
                   </td>
-                  <td className="border px-3 py-2 text-green-600 font-semibold">
+                  <td className="border px-2 py-2 text-green-600 font-semibold">
                     ${order.totalPrice.toFixed(2)}
                   </td>
-                  <td className="border px-3 py-2 text-green-600 font-semibold">
+                  <td className="border px-2 py-2 text-green-600 font-semibold">
                     {order.paymentId || "N/A"}
                   </td>
-                  <td className="border px-3 py-2 text-green-600 font-semibold">
+                  <td className="border px-2 py-2 text-green-600 font-semibold">
                     {order.promoCode || "N/A"}
                   </td>
-                  <td className="border px-3 py-2">
+                  <td className="border px-2 py-2">
                     <select
                       value={order.status}
                       onChange={(e) =>
                         handleStatusChange(order.id, e.target.value)
                       }
-                      className="border rounded px-2 py-1"
+                      className="border rounded px-2 py-1 bg-gray-50 dark:bg-gray-800 dark:text-gray-100"
                     >
                       <option value="Pending">Pending</option>
                       <option value="Shipped">Shipped</option>
@@ -200,9 +202,8 @@ const ManageOrders = () => {
                       <option value="Cancelled">Cancelled</option>
                     </select>
                   </td>
-                  <td className="border px-3 py-2 text-center">
+                  <td className="border px-2 py-2 text-center">
                     <div className="flex flex-col items-center gap-2">
-                      {/* Download Button with Icon */}
                       <button
                         onClick={() => handleDownloadInvoice(order.id)}
                         title="Download Invoice"
@@ -223,8 +224,6 @@ const ManageOrders = () => {
                           />
                         </svg>
                       </button>
-
-                      {/* Delete Button */}
                       <button
                         onClick={() => handleDelete(order.id)}
                         className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs"
@@ -237,7 +236,7 @@ const ManageOrders = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="10" className="text-center py-4">
+                <td colSpan="12" className="text-center py-4">
                   No orders found.
                 </td>
               </tr>
@@ -247,9 +246,9 @@ const ManageOrders = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-4 mt-6">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 mt-6">
         <button
-          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded disabled:opacity-50"
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
           disabled={page === 1}
         >
@@ -259,7 +258,7 @@ const ManageOrders = () => {
           Page {page} of {totalPages}
         </span>
         <button
-          className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          className="px-4 py-2 bg-gray-200 dark:bg-gray-800 rounded disabled:opacity-50"
           onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
           disabled={page === totalPages}
         >

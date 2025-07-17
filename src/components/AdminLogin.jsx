@@ -74,7 +74,7 @@ const AdminLogin = () => {
     <div className="h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-sm mx-auto bg-white dark:bg-gray-800 shadow-md px-6 pt-6 pb-8 rounded-lg">
         <div className="flex justify-center mb-4">
-          <img src={logo} alt="Logo" className="h-12 w-12" />
+          <img src={logo} alt="Logo" className="h-10 w-10" />
         </div>
         <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-100 text-center">
           Admin Dashboard Login
