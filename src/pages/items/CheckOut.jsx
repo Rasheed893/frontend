@@ -1258,9 +1258,12 @@ const CheckOut = () => {
       if (!res.ok) throw new Error(result.error || "Invalid promo code.");
 
       const discount = (subtotal * result.discountPercentage) / 100;
-      setDiscountPercent(result.discountPercentage);
-      setDiscountAmount(discount);
-      setIsFreeShipping(result.freeShipping || false);
+      if (result.discountPercentage > 0 || result.freeShipping) {
+        setDiscountPercent(result.discountPercentage || 0);
+        setDiscountAmount(discount);
+        setIsFreeShipping(result.freeShipping || false);
+        // Optionally: setPromoError(""); // clear any previous error
+      }
 
       const currentCity = watch("city");
       const updatedTotal = calculateFinalTotals(
@@ -1782,8 +1785,41 @@ const CheckOut = () => {
                             onChange={(e) => setPromoCode(e.target.value)}
                             className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 dark:bg-gray-900 dark:text-gray-100 border-gray-300 dark:border-gray-700"
                             placeholder="Enter promo code"
-                            disabled={discountPercent > 0} // Disable if promo applied
+                            disabled={discountPercent > 0 || isFreeShipping}
                           />
+                          <button
+                            type="button"
+                            onClick={handleApplyPromo}
+                            className="bg-blue-600 text-white px-4 rounded hover:bg-blue-700"
+                            disabled={
+                              discountPercent > 0 ||
+                              isFreeShipping ||
+                              !promoCode
+                            }
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPromoModal(true)}
+                            className="text-sm text-blue-600 underline ml-2"
+                            title="Show Available Promo Codes"
+                            disabled={discountPercent > 0 || isFreeShipping}
+                          />
+                          {(discountPercent > 0 || isFreeShipping) && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setPromoCode("");
+                                setDiscountPercent(0);
+                                setDiscountAmount(0);
+                                setIsFreeShipping(false);
+                                setPromoError("");
+                              }}
+                              className="bg-red-500 text-white px-2 rounded hover:bg-red-600 ml-2"
+                              title="Remove Promo"
+                            >
+                              Remove
+                            </button>
+                          )}
                           <button
                             type="button"
                             onClick={handleApplyPromo}
@@ -1821,10 +1857,23 @@ const CheckOut = () => {
                         {promoError && (
                           <p className="text-sm text-red-500">{promoError}</p>
                         )}
-                        {discountPercent > 0 && (
+                        {(discountPercent > 0 || isFreeShipping) && (
                           <p className="text-sm text-green-600">
-                            Promo applied: {discountPercent}% off (−AED{" "}
-                            {discountAmount.toFixed(2)})
+                            Promo applied:
+                            {discountPercent > 0 && (
+                              <>
+                                {" "}
+                                {discountPercent}% off (−AED{" "}
+                                {discountAmount.toFixed(2)}){" "}
+                              </>
+                            )}
+                            {isFreeShipping && (
+                              <>
+                                {" "}
+                                {discountPercent > 0 ? "and " : ""}Free Shipping
+                                applied
+                              </>
+                            )}
                           </p>
                         )}
                       </div>
