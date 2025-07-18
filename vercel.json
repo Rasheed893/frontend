@@ -1,14 +1,3 @@
 {
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' https://apis.google.com https://js.stripe.com https://*.stripe.com; connect-src 'self' https://api.stripe.com https://*.mongodb.net https://*.mongodb.com https://store-production-39af.up.railway.app; frame-src 'self' https://js.stripe.com https://hooks.stripe.com; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;"
-        }
-      ]
-    }
-  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
