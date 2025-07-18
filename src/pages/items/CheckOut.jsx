@@ -1556,6 +1556,7 @@ const CheckOut = () => {
         handleClearCart();
         return;
       }
+      console.log("paymentIntent", paymentIntent);
     } catch (error) {
       handlePaymentError(error);
     } finally {
