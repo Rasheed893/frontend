@@ -1069,7 +1069,11 @@ import Loading from "../../components/Loading.jsx";
 import getBaseURL from "../../utils/baseURL.js";
 import SelectField from "../dashboard/additem/SelectField.jsx";
 import { useUpdateItemQuantityMutation } from "../../redux/features/itemAPI.js";
-import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
+import {
+  useStripe,
+  useElements,
+  PaymentElement,
+} from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
 import { BiSolidOffer } from "react-icons/bi";
 import "react-toastify/dist/ReactToastify.css";
@@ -1517,6 +1521,53 @@ const CheckOut = () => {
     }
   };
 
+  // const onSubmit = async (data) => {
+  //   if (!stripe || !elements || !clientSecret) {
+  //     Swal.fire("Error", "Payment system not ready", "error");
+  //     return;
+  //   }
+
+  //   setProcessing(true);
+
+  //   try {
+  //     const { error, paymentIntent } = await stripe.confirmCardPayment(
+  //       clientSecret,
+  //       {
+  //         payment_method: {
+  //           card: elements.getElement(PaymentElement),
+  //           billing_details: {
+  //             name: data.name,
+  //             email: data.email,
+  //             phone: data.phone,
+  //             address: {
+  //               line1: data.address,
+  //               city: data.city,
+  //               state: data.state,
+  //               country: data.country || "AE",
+  //             },
+  //           },
+  //         },
+  //       }
+  //     );
+
+  //     if (error) {
+  //       handlePaymentError(error);
+  //       return;
+  //     }
+
+  //     if (paymentIntent && paymentIntent.status === "succeeded") {
+  //       await handlePaymentSuccess(paymentIntent, data);
+  //       handleClearCart();
+  //       return;
+  //     }
+  //     console.log("paymentIntent", paymentIntent);
+  //   } catch (error) {
+  //     handlePaymentError(error);
+  //   } finally {
+  //     setProcessing(false);
+  //   }
+  // };
+
   const onSubmit = async (data) => {
     if (!stripe || !elements || !clientSecret) {
       Swal.fire("Error", "Payment system not ready", "error");
@@ -1526,11 +1577,15 @@ const CheckOut = () => {
     setProcessing(true);
 
     try {
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
+      // First submit the elements to collect form data
+      await elements.submit();
+
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements, // Pass the elements instance
         clientSecret,
-        {
-          payment_method: {
-            card: elements.getElement(CardElement),
+        confirmParams: {
+          return_url: `${window.location.origin}/payment-completion`,
+          payment_method_data: {
             billing_details: {
               name: data.name,
               email: data.email,
@@ -1543,20 +1598,16 @@ const CheckOut = () => {
               },
             },
           },
-        }
-      );
+        },
+        redirect: "if_required",
+      });
 
+      // Process result
       if (error) {
         handlePaymentError(error);
-        return;
-      }
-
-      if (paymentIntent && paymentIntent.status === "succeeded") {
+      } else if (paymentIntent && paymentIntent.status === "succeeded") {
         await handlePaymentSuccess(paymentIntent, data);
-        handleClearCart();
-        return;
       }
-      console.log("paymentIntent", paymentIntent);
     } catch (error) {
       handlePaymentError(error);
     } finally {
@@ -1884,8 +1935,8 @@ const CheckOut = () => {
                           Card Details
                         </label>
                         <div className="p-4 border border-gray-300 dark:border-gray-700 rounded bg-white dark:bg-gray-900 shadow-sm">
-                          <CardElement
-                            id="card-element"
+                          <PaymentElement
+                            id="payment-element"
                             onChange={(event) => {
                               setIsCardComplete(!event.empty);
                               setCardError(event.error?.message || "");
